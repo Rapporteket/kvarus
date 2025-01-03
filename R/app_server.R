@@ -1,4 +1,4 @@
-#' Server logic for the rapRegTemplate app
+#' Server logic for the kvarus app
 #'
 #' @param input shiny input object
 #' @param output shiny output object
@@ -19,7 +19,7 @@ app_server <- function(input, output, session) {
   )
   output$appOrgName <- shiny::renderText(rapbase::getUserReshId(session))
   userInfo <-
-    rapbase::howWeDealWithPersonalData(session, callerPkg = "rapRegTemplate")
+    rapbase::howWeDealWithPersonalData(session, callerPkg = "kvarus")
   shiny::observeEvent(input$userInfo, {
     shinyalert::shinyalert("Dette vet Rapporteket om deg:", userInfo,
                            type = "", imageUrl = "rap/logo.svg",
@@ -30,7 +30,7 @@ app_server <- function(input, output, session) {
   # Veiledning
   output$veiledning <- shiny::renderUI({
     rapbase::renderRmd(
-      system.file("veiledning.Rmd", package = "rapRegTemplate"),
+      system.file("veiledning.Rmd", package = "kvarus"),
       outputType = "html_fragment"
     )
   })
@@ -53,7 +53,7 @@ app_server <- function(input, output, session) {
   ## vis
   output$samlerapport <- shiny::renderUI({
     rapbase::renderRmd(
-      system.file("samlerapport.Rmd", package = "rapRegTemplate"),
+      system.file("samlerapport.Rmd", package = "kvarus"),
       outputType = "html_fragment",
       params = list(type = "html",
                     var = input$varS,
@@ -64,12 +64,12 @@ app_server <- function(input, output, session) {
   ## last ned
   output$downloadSamlerapport <- shiny::downloadHandler(
     filename = function() {
-      basename(tempfile(pattern = "rapRegTemplateSamlerapport",
+      basename(tempfile(pattern = "kvarusSamlerapport",
                         fileext = paste0(".", input$formatS)))
     },
     content = function(file) {
       srcFile <-
-        normalizePath(system.file("samlerapport.Rmd", package = "rapRegTemplate"))
+        normalizePath(system.file("samlerapport.Rmd", package = "kvarus"))
       fn <- rapbase::renderRmd(srcFile, outputType = input$formatS,
                                params = list(type = input$formatS,
                                              var = input$varS,
@@ -129,7 +129,7 @@ app_server <- function(input, output, session) {
 
   ## Subscription
   rapbase::autoReportServer(
-    id = "testSubscription", registryName = "rapRegTemplate",
+    id = "testSubscription", registryName = "kvarus",
     type = "subscription", reports = reports, orgs = orgs, freq = "quarter"
   )
 
@@ -152,7 +152,7 @@ app_server <- function(input, output, session) {
       dispatchment$email[!dispatchment$email == input$email]
   })
   shiny::observeEvent(input$dispatch, {
-    package <- "rapRegTemplate"
+    package <- "kvarus"
     type <- "dispatchment"
     owner <- rapbase::getUserName(session)
     ownerName <- rapbase::getUserFullName(session)
