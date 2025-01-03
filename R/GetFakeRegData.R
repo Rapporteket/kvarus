@@ -6,9 +6,11 @@
 #' @return regData data frame
 #' @export
 
+library(readxl)
+
 getFakeRegData <- function() {
 
-  regData <- datasets::mtcars
+  regData <- read_excel("DataDump_MRS-DEMO_Basisopplysninger_2024-10-28_1403.xlsx")
 
   return(regData)
 }

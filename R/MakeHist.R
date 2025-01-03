@@ -17,6 +17,7 @@
 makeHist <- function(df, var, bins, makeTable = FALSE) {
 
   x <- df[[var]]
+  x <- x[!is.na(x)]
   bins <- seq(min(x), max(x), length.out = bins + 1)
   t <- graphics::hist(
     x,

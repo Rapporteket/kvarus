@@ -41,7 +41,7 @@ app_ui <- function() {
             shiny::selectInput(
               inputId = "var",
               label = "Variabel:",
-              c("mpg", "disp", "hp", "drat", "wt", "qsec")
+              c("PatientAge", "oppfolging_nav_frekvens")
             ),
             shiny::sliderInput(
               inputId = "bins",
@@ -69,7 +69,7 @@ app_ui <- function() {
               shiny::selectInput(
                 inputId = "varS",
                 label = "Variabel:",
-                c("mpg", "disp", "hp", "drat", "wt", "qsec")
+                c("PatientAge", "oppfolging_nav_frekvens")
               ),
               shiny::sliderInput(
                 inputId = "binsS",
