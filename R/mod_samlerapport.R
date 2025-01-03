@@ -6,7 +6,38 @@ NULL
 samlerapport_ui <- function(id) {
   ns <- shiny::NS(id)
 
-
+  shiny::tabPanel(
+    "Fordeling",
+    shiny::sidebarLayout(
+      shiny::sidebarPanel(
+        width = 3,
+        shiny::selectInput(
+          inputId = ns("varS"),
+          label = "Variabel:",
+          c("PatientAge", "oppfolging_nav_frekvens")
+        ),
+        shiny::sliderInput(
+          inputId = ns("binsS"),
+          label = "Antall grupper:",
+          min = 1,
+          max = 10,
+          value = 5
+        ),
+        shiny::selectInput(
+          inputId = ns("formatS"),
+          label = "Velg format for nedlasting:",
+          choices = list(PDF = "pdf", HTML = "html")
+        ),
+        shiny::downloadButton(
+          outputId = ns("downloadSamlerapport"),
+          label = "Last ned!"
+        )
+      ),
+      shiny::mainPanel(
+        shiny::uiOutput(ns("samlerapport"))
+      )
+    )
+  )
 }
 
 samlerapport_server <- function(id) {
@@ -15,7 +46,34 @@ samlerapport_server <- function(id) {
     function(input, output, session) {
       ns <- session$ns
 
-      
+      # Samlerapport
+      ## vis
+      output$samlerapport <- shiny::renderUI({
+        rapbase::renderRmd(
+          system.file("samlerapport.Rmd", package = "kvarus"),
+          outputType = "html_fragment",
+          params = list(type = "html",
+                        var = input$varS,
+                        bins = input$binsS)
+        )
+      })
+
+       ## last ned
+      output$downloadSamlerapport <- shiny::downloadHandler(
+        filename = function() {
+          basename(tempfile(pattern = "kvarusSamlerapport",
+                            fileext = paste0(".", input$formatS)))
+        },
+        content = function(file) {
+          srcFile <-
+            normalizePath(system.file("samlerapport.Rmd", package = "kvarus"))
+          fn <- rapbase::renderRmd(srcFile, outputType = input$formatS,
+                                  params = list(type = input$formatS,
+                                                var = input$varS,
+                                                bins = input$binsS))
+          file.rename(fn, file)
+        }
+      )
     }
   )
 }

@@ -32,22 +32,24 @@ plots_ui <- function(id) {
 }
 
 plots_server <- function(id) {
-  shiny::moduleServer(id, function(input, output, session) {
-    ns <- session$ns
+  shiny::moduleServer(
+    id,
+    function(input, output, session) {
+      ns <- session$ns
 
-    # Last inn data
-    basisData <- getBasisData()
+      # Last inn data
+      basisData <- getBasisData()
 
-    # Figur og tabell
-    # Figur
-    output$distPlot <- shiny::renderPlot({
-      makeHist(df = basisData, var = input$var, bins = input$bins)
-    })
+      # Figur og tabell
+      # Figur
+      output$distPlot <- shiny::renderPlot({
+        makeHist(df = basisData, var = input$var, bins = input$bins)
+      })
 
-    # Tabell
-    output$distTable <- shiny::renderTable({
-      makeHist(df = basisData, var = input$var, bins = input$bins,
-              makeTable = TRUE)
-    })
-  }
+      # Tabell
+      output$distTable <- shiny::renderTable({
+        makeHist(df = basisData, var = input$var, bins = input$bins,
+                makeTable = TRUE)
+      })
+    }
 )}
