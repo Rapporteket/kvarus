@@ -23,15 +23,7 @@ app_ui <- function() {
 
       shiny::tabPanel(
         "Veiledning",
-        shiny::mainPanel(
-          width = 12,
-          shiny::htmlOutput("veiledning", inline = TRUE),
-          rapbase::appNavbarUserWidget(
-            user = shiny::uiOutput("appUserName"),
-            organization = shiny::uiOutput("appOrgName"),
-            addUserInfo = TRUE
-          )
-        )
+        veiledning_ui("veiledning")
       ),
       shiny::tabPanel(
         "Figur og tabell",

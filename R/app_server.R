@@ -26,13 +26,7 @@ app_server <- function(input, output, session) {
                            html = TRUE, confirmButtonText = rapbase::noOptOutOk())
   })
 
-  # Veiledning
-  output$veiledning <- shiny::renderUI({
-    rapbase::renderRmd(
-      system.file("veiledning.Rmd", package = "kvarus"),
-      outputType = "html_fragment"
-    )
-  })
+  veiledning_server("veiledning")
 
   plots_server("plots")
 
