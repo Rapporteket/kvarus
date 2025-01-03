@@ -9,8 +9,7 @@
 
 app_server <- function(input, output, session) {
 
-  # Last inn data
-  regData <- getFakeRegData()
+
 
   # Brukerinformasjon i menylinja (navbar)
   output$appUserName <- shiny::renderText(
@@ -35,19 +34,7 @@ app_server <- function(input, output, session) {
     )
   })
 
-
-  # Figur og tabell
-  # Figur
-  output$distPlot <- shiny::renderPlot({
-    makeHist(df = regData, var = input$var, bins = input$bins)
-  })
-
-  # Tabell
-  output$distTable <- shiny::renderTable({
-    makeHist(df = regData, var = input$var, bins = input$bins,
-             makeTable = TRUE)
-  })
-
+  plots_server("plots")
 
   # Samlerapport
   ## vis

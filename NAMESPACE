@@ -3,8 +3,9 @@
 export("%>%")
 export(app_server)
 export(app_ui)
-export(getFakeRegData)
+export(getBasisData)
 export(getRegData)
 export(makeHist)
 export(run_app)
+
 importFrom(magrittr,"%>%")

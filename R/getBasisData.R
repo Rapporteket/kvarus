@@ -8,9 +8,9 @@
 
 library(readxl)
 
-getFakeRegData <- function() {
+getBasisData <- function() {
 
-  regData <- read_excel("DataDump_MRS-DEMO_Basisopplysninger_2024-10-28_1403.xlsx")
+  basisData <- read_excel("DataDump_MRS-DEMO_Basisopplysninger_2024-10-28_1403.xlsx")
 
-  return(regData)
+  return(basisData)
 }

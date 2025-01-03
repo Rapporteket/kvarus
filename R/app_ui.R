@@ -35,29 +35,7 @@ app_ui <- function() {
       ),
       shiny::tabPanel(
         "Figur og tabell",
-        shiny::sidebarLayout(
-          shiny::sidebarPanel(
-            width = 3,
-            shiny::selectInput(
-              inputId = "var",
-              label = "Variabel:",
-              c("PatientAge", "oppfolging_nav_frekvens")
-            ),
-            shiny::sliderInput(
-              inputId = "bins",
-              label = "Antall grupper:",
-              min = 1,
-              max = 10,
-              value = 5
-            )
-          ),
-          shiny::mainPanel(
-            shiny::tabsetPanel(
-              shiny::tabPanel("Figur", shiny::plotOutput("distPlot")),
-              shiny::tabPanel("Tabell", shiny::tableOutput("distTable"))
-            )
-          )
-        )
+        plots_ui("plots")
       ),
       shiny::tabPanel(
         "Samlerapport",
