@@ -1,0 +1,11 @@
+---
+title: 'Veiledning'
+author: 'Rapporteket'
+date: '`r format(Sys.time(), "%d. %B %Y")`'
+output: 
+  html_document: 
+    keep_md: yes
+---
+
+# Kvarus sitt rapportek
+Dette er rapporteket til Kvarus
