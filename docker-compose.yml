@@ -9,11 +9,12 @@ services:
   dev:
     depends_on:
       - db
-    image: rapporteket/deformitet-dev:main
+    image: rapporteket/kvarus-dev:main
     volumes:
       - ~/.ssh:/home/rstudio/.ssh
       - ~/.gitconfig:/home/rstudio/.gitconfig
       - .:/home/rstudio/kvarus
+      - ../rapbase:/home/rstudio/rapbase
     ports:
       - "8787:8787"
       - "3838:3838"
