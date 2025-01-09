@@ -10,7 +10,13 @@ library(readxl)
 
 getBasisData <- function() {
 
-  basisData <- read_excel("DataDump_MRS-DEMO_Basisopplysninger_2024-10-28_1403.xlsx")
+  basisData <- readxl::read_excel("DataDump_MRS-DEMO_Basisopplysninger_2024-10-28_1403.xlsx")
 
   return(basisData)
+}
+
+getTimepointData <- function () {
+  timepointData <- readxl::read_excel("DataDump_MRS-DEMO_Målepunkt_2024-10-28_1403.xlsx")
+
+  return(timepointData)
 }

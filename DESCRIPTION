@@ -17,7 +17,8 @@ Imports:
   magrittr,
   rapbase,
   shiny,
-  shinyalert
+  shinyalert,
+  readxl
 Remotes:
   Rapporteket/rapbase
 License: GPL-3
