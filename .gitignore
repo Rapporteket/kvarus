@@ -52,3 +52,6 @@ rsconnect/
 *.csv
 *.xlsx
 *.sql
+
+# Apple-ting
+.DS_Store
