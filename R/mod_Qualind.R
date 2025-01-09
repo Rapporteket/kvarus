@@ -6,6 +6,9 @@
 # Server-part
 
 ### Load in data ###
-data_kvarus <- getTimepointData()
+punktData <- getTimepointData()
 
 data <- getBasisData()
+
+### Clean and tidy data ###
+punktData <- prePros(punktData)
