@@ -4,6 +4,7 @@
 #' and keeps the first registration
 #'
 #' @return timepointData data frame
+#' @export
 
 getFirstRegistrations <- function(timepointData) {
   filteredData <- timepointData %>%
