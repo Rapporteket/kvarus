@@ -10,7 +10,8 @@ getFirstRegistrations <- function(timepointData) {
   filteredData <- timepointData %>%
     dplyr::group_by(PasientGUID) %>%
     dplyr::arrange(dato_mp_beh, .by_group = TRUE) %>%
-    dplyr::slice_head()
+    dplyr::slice_head() %>%
+    dplyr::ungroup()
 
   return(filteredData)
 }
@@ -22,7 +23,6 @@ prePros <- function(data) {
 
   data <- data %>%
     dplyr::rename(Sykehus = db_unit_title,
-                  Kjønn = PatientGender,
                   Alder = PatientAge)
 
   data <- data %>%
@@ -35,8 +35,9 @@ prePros <- function(data) {
                   behandlingsplan = dplyr::recode(plan_beh, "0" = "velg verdi", "1" = "nei", "2" = "ja", "3" = "vet ikke"),
 
                   utbytte_evaluaring = dplyr::recode(eval_utbytte, "0" = "velg verdi", "1" = "meget dårlig", "2" = "dårlig",
-                                           "3" = "verken god eller dårlig", "4" = "god", "5" = "meget god/godt"))
+                                           "3" = "verken god eller dårlig", "4" = "god", "5" = "meget god/godt"),
 
+                  Kjønn = dplyr::recode(PatientGender, "1" = "mann", "2" = "kvinne")) # Vill gjetning
 
   data <- data %>%
     dplyr::select(!behandlingsstatus) %>%
