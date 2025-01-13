@@ -18,7 +18,11 @@ Imports:
   rapbase,
   shiny,
   shinyalert,
-  readxl
+  readxl,
+  dplyr,
+  ggplot2,
+  tidyr,
+  bslib
 Remotes:
   Rapporteket/rapbase
 License: GPL-3
