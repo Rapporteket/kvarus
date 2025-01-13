@@ -16,6 +16,7 @@ getBasisData <- function() {
 }
 
 #' @export
+
 getTimepointData <- function() {
   timepointData <- readxl::read_excel("/home/rstudio/kvarus/DataDump_MRS-DEMO_Målepunkt_2024-10-28_1403.xlsx") %>%
     as.data.frame()

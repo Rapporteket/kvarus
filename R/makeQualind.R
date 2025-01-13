@@ -8,13 +8,13 @@ kval_count <- function(data, var){ # legg evt. til flere variabler her avhengig 
   # Prosessindikatorene med KUN: første målepunkt ###############################
 
   ###### ONLY FIRST POINT OF MEASURE ############################################
-  data <- getFirstRegistrations(data)
+  data <- getFirstRegistrations(punktData)
 
   data <- data %>%
     dplyr::filter(behandlingsstatus == "aktiv")
 
-  data <- data %>%
-    filter(Sykehus != "NA")
+  #data <- data %>%
+   # filter(Sykehus != "NA")
 
   ##### Make tiny data set with counts ###########################################
   my_tiny_data <- data %>%
@@ -123,4 +123,34 @@ kval_plot <- function(data, gg_data){
 
 # Test to see that it works
 ## kval_plot(kval, ggData)
+
+
+#' @title Function for getting explanations for kvalitetsindikatorer
+#'
+#' @export
+
+
+explanation_kvalind <- function(var){
+
+  data <- data.frame(header = "", text = "")
+
+
+  data <- data %>%
+    dplyr::mutate(text =  dplyr::case_match({{var}},
+                                            "behandlingsplan" ~
+                                              paste0("Figuren viser fordelingen av andel pasienter som tidlig i forløpet er under aktiv behandling og har på plass en behandlingsplan. For hvert sykehus er det regnet ut slik:", "<br/>", "antall pasienter som ved første målepunkt har status som 'aktiv' og har en behandlingsplan / antall pasienter som ved første målepunkt har status som 'aktiv' *100", "<br/>"))
+                  ,
+                  header =
+                    dplyr::case_match({{var}},
+                                      "behandlingsplan" ~ "Behandlingsplan på plass tidlig i forløpet")
+
+    )
+
+
+  return(data)
+
+}
+
+# Testing that it works
+## g <- explanation_kvalind("behandlingsplan")
 
