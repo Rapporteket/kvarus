@@ -3,7 +3,7 @@
 #'
 #' @export
 
-kval_count <- function(data, var){ # legg evt. til flere variabler her avhengig av brukervalg
+kval_count <- function(punktData, var) { # legg evt. til flere variabler her avhengig av brukervalg
 
   # Prosessindikatorene med KUN: første målepunkt ###############################
 
@@ -115,7 +115,7 @@ annotations <- function(var){
 
 #' @export
 
-kval_plot <- function(data, gg_data, anno){
+kval_plot <- function(data, ggData, anno){
 
   kval_plot <- data %>%
 
@@ -174,7 +174,7 @@ kval_plot <- function(data, gg_data, anno){
 #' @export
 
 
-explanation_kvalind <- function(var){
+explanation_kvalind <- function(var) {
 
   data <- data.frame(header = "", text = "")
 

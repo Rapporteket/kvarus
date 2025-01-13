@@ -48,10 +48,10 @@ module_kvalitetsindikator_UI <- function(id){
 
 #'@export
 
-module_kvalitetsindikator_server <- function(id){
+module_kvalitetsindikator_server <- function(id) {
   shiny::moduleServer(
     id,
-    function(input, output, session){
+    function(input, output, session) {
       ns <- session$ns
 
     ### Load in data ###
@@ -63,8 +63,8 @@ module_kvalitetsindikator_server <- function(id){
     punktData <- prePros(punktData)
 
     # Count quality indicator:
-    kval_df_reactive <- reactive({
-      x <- kval_count(punktData, input$kval_var)
+    kval_df_reactive <- shiny::reactive({
+      kval_count(punktData, input$kval_var)
     })
 
     #### kval <- kval_count(punktData, "behandlingsstatus")
@@ -72,26 +72,26 @@ module_kvalitetsindikator_server <- function(id){
 
 ###### PLOT ####################################################################
     # Make labs for ggplot:
-    ggData_reactive <- reactive({
-      ggData <- makeGGdata(input$kval_var, "kval")
+    ggData_reactive <- shiny::reactive({
+      makeGGdata(input$kval_var, "kval")
     })
 
     #### ggData <- makeGGdata("behandlingsstatus", "kval")
 
     # Make annotations for plot:
-    anno_reactive <- reactive({
-      anno <- annotations(input$kval_var)
+    anno_reactive <- shiny::reactive({
+      annotations(input$kval_var)
     })
 
 
     # Make plot:
 
-    kval_plot <- reactive({
-      kval_plot(kval_df_reactive(), ggData_reactive())
+    kval_plot_reactive <- shiny::reactive({
+      kval_plot(kval_df_reactive(), ggData_reactive(), anno_reactive())
     })
 
-    output$kval_plot <- renderPlot({
-      kval_plot()
+    output$kval_plot <- shiny::renderPlot({
+      kval_plot_reactive()
     })
 
     ##### kval_plot <- kval_plot(kval, ggData)
@@ -115,7 +115,7 @@ module_kvalitetsindikator_server <- function(id){
       },
       content = function(file){
         pdf(file, onefile = TRUE, width = 15, height = 9)
-        plot(kval_plot())
+        plot(kval_plot_reactive())
         dev.off()
       }
     )
@@ -131,13 +131,13 @@ module_kvalitetsindikator_server <- function(id){
 
 ####### EXPLANATION OF CALCULATION QUALIND #####################################
 
-    output$text_header <- renderText({
-      data <- explanation_kvalind(input$kjønn_var, input$kval_var)
+    output$text_header <- shiny::renderText({
+      data <- explanation_kvalind(input$kval_var)
       data$header
     })
 
-    output$text_body <- renderText({
-      data <- explanation_kvalind(input$kjønn_var, input$kval_var)
+    output$text_body <- shiny::renderText({
+      data <- explanation_kvalind(input$kval_var)
       data$text
     })
 
