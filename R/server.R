@@ -13,6 +13,8 @@ app_server <- function(input, output, session) {
   library(ggplot2)
   library(dplyr)
   library(tidyr)
+  library(DT)
+  library(bslib)
 
   # Brukerinformasjon i menylinja (navbar)
   output$appUserName <- shiny::renderText(

@@ -8,9 +8,12 @@ makeGGdata <- function(var, type_plot){
 
   if (type_plot == "kval"){
   ggdata <- ggdata %>%
-    dplyr::mutate(title = dplyr::case_match({{var}}, "behandlingsstatus" ~ "Andel pasienter som tidlig i forløpet (første målepunkt) har fått utarbeidet behandlingsplan"),
-                  xlab = dplyr::case_match({{var}}, "behandlingsstatus" ~ "Andel pasienter"))
+    dplyr::mutate(title = dplyr::case_when({{var}} == "behandlingsplan" ~ "Andel pasienter som tidlig i forløpet (første målepunkt) har fått utarbeidet behandlingsplan",
+                                            {{var}} == "kriseplan" ~ "Andel pasienter som tidlig i forløpet (første målepunkt) har fått utarbeidet behandlingsplan"),
+                  xlab = dplyr::case_when({{var}} == "behandlingsplan" ~ "Andel pasienter",
+                                           {{var}} == "kriseplan" ~ "Andel pasienter"))
   }
 }
 
-ggData <- makeGGdata("behandlingsstatus", "kval")
+# Test to see if it works:
+## ggData <- makeGGdata("behandlingsplan", "kval")

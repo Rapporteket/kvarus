@@ -34,6 +34,8 @@ prePros <- function(data) {
 
                   behandlingsplan = dplyr::recode(plan_beh, "0" = "velg verdi", "1" = "nei", "2" = "ja", "3" = "vet ikke"),
 
+                  kriseplan = dplyr::recode(plan_krise, "0" = "velg verdi", "1" = "nei", "2" = "ja", "3" = "vet ikke"),
+
                   utbytte_evaluaring = dplyr::recode(eval_utbytte, "0" = "velg verdi", "1" = "meget dårlig", "2" = "dårlig",
                                            "3" = "verken god eller dårlig", "4" = "god", "5" = "meget god/godt"),
 

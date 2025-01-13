@@ -10,9 +10,10 @@ module_kvalitetsindikator_UI <- function(id){
         selectInput( # First select
           inputId = ns("kval_var"),
           label = "Velg Kvalitetsindikator:",
-          choices = c("Behandlingsplan på plass tidlig i forløpet" = "behandlingsplan"
+          choices = c("Behandlingsplan på plass tidlig i forløpet" = "behandlingsplan",
+                      "Kriseplan på plass tidlig i forløpet" = "kriseplan"
           ),
-          selected = "Behandling_kvalind")),
+          selected = "behandlingsplan")),
 
 
       shiny::mainPanel(
@@ -48,10 +49,10 @@ module_kvalitetsindikator_UI <- function(id){
 #'@export
 
 module_kvalitetsindikator_server <- function(id){
-  moduleServer(
+  shiny::moduleServer(
     id,
     function(input, output, session){
-
+      ns <- session$ns
 
     ### Load in data ###
     punktData <- getTimepointData()
@@ -76,6 +77,11 @@ module_kvalitetsindikator_server <- function(id){
     })
 
     #### ggData <- makeGGdata("behandlingsstatus", "kval")
+
+    # Make annotations for plot:
+    anno_reactive <- reactive({
+      anno <- annotations(input$kval_var)
+    })
 
 
     # Make plot:

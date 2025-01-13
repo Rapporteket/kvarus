@@ -31,6 +31,8 @@ kval_count <- function(data, var){ # legg evt. til flere variabler her avhengig 
   kval <- data %>%
     dplyr::filter(dplyr::case_when({{var}} == "behandlingsplan" ~
                                     behandlingsplan == "ja",
+                                   {{var}} == "kriseplan" ~
+                                     kriseplan == "ja",
                                    ## Legg evt. til flere variabler her
                                    TRUE ~
                                      behandlingsplan != "ja")) %>%
@@ -58,34 +60,76 @@ kval_count <- function(data, var){ # legg evt. til flere variabler her avhengig 
 }
 
 # testing:
-## kval <-  kval_count(punktData, "behandlingsstatus")
+## kval <-  kval_count(punktData, "kriseplan")
 
 
 
 # Test for å sjekke:
 ## k <- kval_count(punktData, "behandlingsplan")
 
+
+#' Annotations
+#'
+#' Get the right annotations in plot based on desired points of measurement
+#' for each of the quality indicators
+#'
+#' If a certain quality indicator is selected by user, the right level must be
+#' indicated in green and in orange. xmax and xmin indicate the level for high
+#' (=green) achievement. xmax_moderate and xmin_moderate indicate the level for
+#' moderate achievement (i.e., orange)
+#'
+#'
+#' @return data frame with numeric values
+#' @examples
+#' my_annotations <- annotations("behandlingsplan")
+#'
+#' @export
+
+annotations <- function(var){
+  anno = data.frame(xmax = 100, # in most cases xmax would be 100%
+                    xmin = 0, # this must be altered
+                    xmax_moderate = 0, # this must be altered
+                    xmin_moderate = 0) # this must be altered
+
+  anno <- anno %>%
+    dplyr::mutate(xmin = dplyr::case_when({{var}} == "behandlingsplan" ~ 80,
+                                          {{var}} == "kriseplan" ~ 60),
+                  xmax_moderate = xmin,
+                  xmin_moderate = dplyr::case_when({{var}} == "behandlingsplan" ~ 60,
+                                                   {{var}} == "kriseplan" ~ 40)
+    )
+
+
+  return(anno)
+}
+
+# Test what it works::
+## anno <- annotations("kriseplan")
+
+
+
 # This function takes data frames made by other functions as input
 # "data" is the data frame made by kval_count
 # "gg_data" is the data frame made by makeGGdata
+# "anno" is the data frame made by "annotations"
 
 #' @export
 
-kval_plot <- function(data, gg_data){
+kval_plot <- function(data, gg_data, anno){
 
   kval_plot <- data %>%
 
       ggplot2::ggplot(aes(x = andel_per_syk, y = Sykehus))+
 
       ggplot2::annotate("rect", ######### DENNE KAN HELLER BRUKES "OVER TID"...
-                        xmin = 80,
-                        xmax = 100,
+                        xmin = anno$xmin,
+                        xmax = anno$xmax,
                         ymin = -Inf, ymax = Inf , fill = "lightgreen",
                         alpha = .25)+
 
       ggplot2::annotate("rect", ######### DENNE KAN HELLER BRUKES "OVER TID"...
-                        xmin = 60,
-                        xmax = 79.999,
+                        xmin = anno$xmin_moderate,
+                        xmax = anno$xmax_moderate,
                         ymin = -Inf, ymax = Inf , fill = "gold",
                         alpha = .15)+
 
@@ -122,7 +166,7 @@ kval_plot <- function(data, gg_data){
 
 
 # Test to see that it works
-## kval_plot(kval, ggData)
+## kval_plot(kval, ggData, anno)
 
 
 #' @title Function for getting explanations for kvalitetsindikatorer

@@ -36,7 +36,7 @@ app_ui <- function() {
 
       shiny:: tabPanel(
         title = "Kvalitetsindikatorer",
-        deformitet::module_kvalitetsindikator_UI("kval1")
+        module_kvalitetsindikator_UI("kval1")
       ),
 
       shiny::tabPanel(
