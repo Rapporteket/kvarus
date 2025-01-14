@@ -29,6 +29,16 @@ app_ui <- function() {
         "Figur og tabell",
         plots_ui("plots")
       ),
+
+
+      ################################################################################
+      ##### TAB: Kvalitetsindikatorer ################################################
+
+      shiny:: tabPanel(
+        title = "Kvalitetsindikatorer",
+        module_kvalitetsindikator_ui("kval1")
+      ),
+
       shiny::tabPanel(
         "Samlerapport",
         samlerapport_ui("samlerapport")

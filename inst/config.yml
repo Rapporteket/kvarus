@@ -1,0 +1,25 @@
+kvalind:
+  behandlingsplan:
+    tittel: 
+      Andel pasienter som tidlig i forløpet (første målepunkt) har fått utarbeidet behandlingsplan
+    forklaring: >
+      Figuren viser fordelingen av andel pasienter som tidlig i forløpet er under aktiv behandling og har på plass en behandlingsplan. For hvert sykehus er det regnet ut slik:
+      <br/>
+      antall pasienter som ved første målepunkt har status som 'aktiv' og har en behandlingsplan / antall pasienter som ved første målepunkt har status som 'aktiv' *100
+      <br/>
+  kriseplan:
+    tittel:
+      Andel pasienter som tidlig i forløpet (første målepunkt) har fått utarbeidet behandlingsplan
+    forklaring: >
+      Figuren viser fordelingen av andel pasienter som tidlig i forløpet er under aktiv behandling og har på plass en behandlingsplan. For hvert sykehus er det regnet ut slik:
+      <br/>
+      antall pasienter som ved første målepunkt har status som 'aktiv' og har en kriseplan / antall pasienter som ved første målepunkt har status som 'aktiv' *100
+      <br/>
+  utbytte: 
+    tittel:
+      Andel pasienter som har opplevd stort utbytte (skår 4 eller 5) av behandlingen
+    forklaring: >
+      Figuren viser fordelingen av andel pasienter som svarer at de i stor (=4) eller svært stor (=5) grad har utbytte av behandlingen. For hvert sykehus er det regnet ut slik
+      <br/>
+      antall pasienter som ved første målepunkt har status som 'aktiv' og har svart 4 eller 5 / antall pasienter som ved første målepunkt har status som 'aktiv' *100
+      <br/>

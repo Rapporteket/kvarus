@@ -17,13 +17,19 @@ Imports:
   magrittr,
   rapbase,
   shiny,
-  shinyalert
+  shinyalert,
+  readxl,
+  dplyr,
+  ggplot2,
+  tidyr,
+  bslib,
+  yaml
 Remotes:
   Rapporteket/rapbase
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 URL: http://github.com/Rapporteket/kvarus
 BugReports: http://github.com/Rapporteket/kvarus/issues
 Suggests: 
