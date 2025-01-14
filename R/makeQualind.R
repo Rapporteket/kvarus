@@ -33,6 +33,8 @@ kval_count <- function(punktData, var) { # legg evt. til flere variabler her avh
                                     behandlingsplan == "ja",
                                    {{var}} == "kriseplan" ~
                                      kriseplan == "ja",
+                                   {{var}} == "utbytte" ~
+                                     eval_utbytte %in% c(4, 5),
                                    ## Legg evt. til flere variabler her
                                    TRUE ~
                                      behandlingsplan != "ja")) %>%
@@ -60,9 +62,7 @@ kval_count <- function(punktData, var) { # legg evt. til flere variabler her avh
 }
 
 # testing:
-## kval <-  kval_count(punktData, "kriseplan")
-
-
+## kval <-  kval_count(punktData, "utbytte")
 
 # Test for å sjekke:
 ## k <- kval_count(punktData, "behandlingsplan")
@@ -93,10 +93,12 @@ annotations <- function(var){
 
   anno <- anno %>%
     dplyr::mutate(xmin = dplyr::case_when({{var}} == "behandlingsplan" ~ 80,
-                                          {{var}} == "kriseplan" ~ 60),
+                                          {{var}} == "kriseplan" ~ 60,
+                                          {{var}} == "utbytte" ~ 80),
                   xmax_moderate = xmin,
                   xmin_moderate = dplyr::case_when({{var}} == "behandlingsplan" ~ 60,
-                                                   {{var}} == "kriseplan" ~ 40)
+                                                   {{var}} == "kriseplan" ~ 40,
+                                                   {{var}} == "utbytte" ~ 60)
     )
 
 
@@ -182,14 +184,19 @@ explanation_kvalind <- function(var) {
   data <- data %>%
     dplyr::mutate(text =  dplyr::case_match({{var}},
                                             "behandlingsplan" ~
-                                              paste0("Figuren viser fordelingen av andel pasienter som tidlig i forløpet er under aktiv behandling og har på plass en behandlingsplan. For hvert sykehus er det regnet ut slik:", "<br/>", "antall pasienter som ved første målepunkt har status som 'aktiv' og har en behandlingsplan / antall pasienter som ved første målepunkt har status som 'aktiv' *100", "<br/>"))
+                                              paste0("Figuren viser fordelingen av andel pasienter som tidlig i forløpet er under aktiv behandling og har på plass en behandlingsplan. For hvert sykehus er det regnet ut slik:", "<br/>", "antall pasienter som ved første målepunkt har status som 'aktiv' og har en behandlingsplan / antall pasienter som ved første målepunkt har status som 'aktiv' *100", "<br/>"),
+                                            {{var}},
+                                            "kriseplan" ~
+                                              paste0("Figuren viser fordelingen av andel pasienter som tidlig i forløpet er under aktiv behandling og har på plass en behandlingsplan. For hvert sykehus er det regnet ut slik:", "<br/>", "antall pasienter som ved første målepunkt har status som 'aktiv' og har en kriseplan / antall pasienter som ved første målepunkt har status som 'aktiv' *100", "<br/>"),
+                                            "utbytte" ~
+                                              paste0("Figuren viser fordelingen av andel pasienter som svarer at de i stor (=4) eller svært stor (=5) grad har utbytte av behandlingen. For hvert sykehus er det regnet ut slik:", "<br/>", "antall pasienter som ved første målepunkt har status som 'aktiv' og har svart 4 eller 5 / antall pasienter som ved første målepunkt har status som 'aktiv' *100", "<br/>"))
                   ,
                   header =
                     dplyr::case_match({{var}},
-                                      "behandlingsplan" ~ "Behandlingsplan på plass tidlig i forløpet")
-
+                                      "behandlingsplan" ~ "Behandlingsplan på plass tidlig i forløpet",
+                                      "kriseplan" ~ "Kriseplan på plass tidlig i forløpet",
+                                      "utbytte" ~ "Stort utbytte av behandlingen")
     )
-
 
   return(data)
 

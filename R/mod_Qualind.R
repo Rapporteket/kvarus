@@ -11,7 +11,8 @@ module_kvalitetsindikator_UI <- function(id){
           inputId = ns("kval_var"),
           label = "Velg Kvalitetsindikator:",
           choices = c("Behandlingsplan på plass tidlig i forløpet" = "behandlingsplan",
-                      "Kriseplan på plass tidlig i forløpet" = "kriseplan"
+                      "Kriseplan på plass tidlig i forløpet" = "kriseplan",
+                      "Opplevd stort utbytte" = "utbytte"
           ),
           selected = "behandlingsplan")),
 
