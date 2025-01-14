@@ -1,0 +1,10 @@
+kvalind:
+  behandlingsplan:
+    tittel: "Andel pasienter som tidlig i forløpet (første målepunkt) har fått utarbeidet behandlingsplan"
+    forklaring: "foo"
+  kriseplan:
+    tittel: "Andel pasienter som tidlig i forløpet (første målepunkt) har fått utarbeidet behandlingsplan"
+    forklaring: "foo"
+  utbytte:
+    tittel: "Andel pasienter som har opplevd stort utbytte (skår 4 eller 5) av behandlingen"
+    forklaring: 

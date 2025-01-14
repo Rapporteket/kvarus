@@ -179,29 +179,18 @@ kval_plot <- function(data, ggData, anno){
 explanation_kvalind <- function(var) {
 
   data <- data.frame(header = "", text = "")
+  config <- get_config() # nolint
 
-
-  data <- data %>%
+  data <- data |>
     dplyr::mutate(text =  dplyr::case_match({{var}},
-                                            "behandlingsplan" ~
-                                              paste0("Figuren viser fordelingen av andel pasienter som tidlig i forløpet er under aktiv behandling og har på plass en behandlingsplan. For hvert sykehus er det regnet ut slik:", "<br/>", "antall pasienter som ved første målepunkt har status som 'aktiv' og har en behandlingsplan / antall pasienter som ved første målepunkt har status som 'aktiv' *100", "<br/>"),
-                                            {{var}},
-                                            "kriseplan" ~
-                                              paste0("Figuren viser fordelingen av andel pasienter som tidlig i forløpet er under aktiv behandling og har på plass en behandlingsplan. For hvert sykehus er det regnet ut slik:", "<br/>", "antall pasienter som ved første målepunkt har status som 'aktiv' og har en kriseplan / antall pasienter som ved første målepunkt har status som 'aktiv' *100", "<br/>"),
-                                            "utbytte" ~
-                                              paste0("Figuren viser fordelingen av andel pasienter som svarer at de i stor (=4) eller svært stor (=5) grad har utbytte av behandlingen. For hvert sykehus er det regnet ut slik:", "<br/>", "antall pasienter som ved første målepunkt har status som 'aktiv' og har svart 4 eller 5 / antall pasienter som ved første målepunkt har status som 'aktiv' *100", "<br/>"))
-                  ,
-                  header =
-                    dplyr::case_match({{var}},
-                                      "behandlingsplan" ~ "Behandlingsplan på plass tidlig i forløpet",
-                                      "kriseplan" ~ "Kriseplan på plass tidlig i forløpet",
-                                      "utbytte" ~ "Stort utbytte av behandlingen")
+                                            "behandlingsplan" ~ config$kvalind$behandlingsplan$forklaring,
+                                            "kriseplan" ~ config$kvalind$kriseplan$forklaring,
+                                            "utbytte" ~ config$kvalind$utbytte$forklaring),
+      header = dplyr::case_match({{var}},
+                                 "behandlingsplan" ~ "Behandlingsplan på plass tidlig i forløpet",
+                                 "kriseplan" ~ "Kriseplan på plass tidlig i forløpet",
+                                 "utbytte" ~ "Stort utbytte av behandlingen")
     )
 
   return(data)
-
 }
-
-# Testing that it works
-## g <- explanation_kvalind("behandlingsplan")
-

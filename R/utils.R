@@ -1,11 +1,8 @@
-#' Pipe operator
-#'
-#' See \code{magrittr::\link[magrittr:pipe]{\%>\%}} for details.
-#'
-#' @name %>%
-#' @rdname pipe
-#' @keywords internal
+
+#' @rdname config
 #' @export
-#' @importFrom magrittr %>%
-#' @usage lhs \%>\% rhs
-NULL
+get_config <- function() {
+  config_file <- "inst/config.yml"
+  config <- yaml::read_yaml(config_file)
+  return(config)
+}
