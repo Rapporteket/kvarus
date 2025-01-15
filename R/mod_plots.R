@@ -35,17 +35,9 @@ plots_server <- function(id) {
   shiny::moduleServer(
     id,
     function(input, output, session) {
-      ns <- session$ns
 
       # Last inn data
       basisData <- getBasisData()
-      timepointData <- getTimepointData()
-
-      # TODO: Lag en figur som viser andel pasienter i timepointData som har utarbeidet behandlingsplan tidlig i forløpet.
-      # For hver pasient-ID (PasientGUID), sorter på registreringstidspunkt (date_mp_beh) og filtrer ut det første tidspunktet per pasient.
-      # Bruk disse radene videre.
-      # Teller: Har behandlingsplan (plan_beh == 2) og status er aktiv (behandlingsstatus == 1)
-      # Nevner: Status er aktiv (behandlingsstatus == 1)
 
       # Figur og tabell
       # Figur
@@ -56,7 +48,8 @@ plots_server <- function(id) {
       # Tabell
       output$distTable <- shiny::renderTable({
         makeHist(df = basisData, var = input$var, bins = input$bins,
-                makeTable = TRUE)
+                 makeTable = TRUE)
       })
     }
-)}
+  )
+}
