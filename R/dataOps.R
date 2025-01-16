@@ -19,7 +19,7 @@ getFirstRegistrations <- function(timepointData) {
 
 prePros <- function(data) {
 
-  data <- data %>%
+  data <- data |>
     dplyr::rename(Sykehus = .data$db_unit_title,
                   Alder = .data$PatientAge)
 
