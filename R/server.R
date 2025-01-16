@@ -29,6 +29,7 @@ app_server <- function(input, output, session) {
   veiledning_server("veiledning")
   plots_server("plots")
   samlerapport_server("samlerapport")
+  module_kvalitetsindikator_server("kval1")
   abonnement_server("abonnement")
   utsending_server("utsending")
 }

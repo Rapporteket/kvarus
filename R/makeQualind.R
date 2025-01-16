@@ -118,7 +118,7 @@ kval_plot <- function(data, ggData, anno){
 
   kval_plot <- data %>%
 
-      ggplot2::ggplot(aes(x = andel_per_syk, y = Sykehus))+
+      ggplot2::ggplot(ggplot2::aes(x = andel_per_syk, y = Sykehus))+
 
       ggplot2::annotate("rect", ######### DENNE KAN HELLER BRUKES "OVER TID"...
                         xmin = anno$xmin,
@@ -146,9 +146,9 @@ kval_plot <- function(data, ggData, anno){
       ggplot2::ggtitle(ggData$title)+
 
 
-      ggplot2::geom_label(aes(x = 0, label = paste(antall_kval_syk, "av", per_syk)),
+      ggplot2::geom_label(ggplot2::aes(x = 0, label = paste(antall_kval_syk, "av", per_syk)),
                           fill = "#BFCED6", color = "#003087", fontface = "italic",
-                          position = position_dodge(.9), vjust = .5, size = 3,
+                          position = ggplot2::position_dodge(.9), vjust = .5, size = 3,
                           alpha = .8)+
 
     ggplot2::scale_x_continuous(breaks = c(20,40,60,80,100))+ # maybe alter this based if other variables are chosen
