@@ -1,4 +1,9 @@
 kvalind:
+  default:
+    tittel:
+      Tittel på indikatoren
+    forklaring:
+      Forklaring på indikatoren
   behandlingsplan:
     tittel: 
       Andel pasienter som tidlig i forløpet (første målepunkt) har fått utarbeidet behandlingsplan

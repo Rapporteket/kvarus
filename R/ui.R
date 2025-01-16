@@ -2,7 +2,6 @@
 #'
 #' @return An shiny app ui object
 #' @export
-
 app_ui <- function() {
 
   shiny::addResourcePath("rap", system.file("www", package = "rapbase"))

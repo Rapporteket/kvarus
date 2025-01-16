@@ -1,8 +1,7 @@
-#' Shiny module providing GUI and server logic for the dispatch tab
+#' Shiny module providing GUI for the dispatch tab
 #'
 #' @param id Character string module namespace
-NULL
-
+#' @export
 utsending_ui <- function(id) {
   ns <- shiny::NS(id)
 
@@ -23,6 +22,10 @@ utsending_ui <- function(id) {
   )
 }
 
+#' Shiny module providing server logic for the dispatch tab
+#'
+#' @param id Character string module namespace
+#' @export
 utsending_server <- function(id) {
   shiny::moduleServer(
     id,

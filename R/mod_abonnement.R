@@ -1,8 +1,6 @@
-#' Shiny module providing GUI and server logic for the subscription v2 tab
+#' Shiny module providing GUI for the subscription tab
 #'
 #' @param id Character string module namespace
-NULL
-
 abonnement_ui <- function(id) {
   ns <- shiny::NS(id)
 
@@ -16,6 +14,10 @@ abonnement_ui <- function(id) {
   )
 }
 
+#' Shiny module providing server logic for the subscription tab
+#'
+#' @param id Character string module namespace
+#' @export
 abonnement_server <- function(id) {
   shiny::moduleServer(
     id,

@@ -1,6 +1,3 @@
-#' @title
-#'
-#'
 #' @export
 
 kval_count <- function(punktData, var) { # legg evt. til flere variabler her avhengig av brukervalg
@@ -179,13 +176,14 @@ kval_plot <- function(data, ggData, anno){
 explanation_kvalind <- function(var) {
 
   data <- data.frame(header = "", text = "")
-  config <- get_config() # nolint
+  config <- get_config()
 
   data <- data |>
     dplyr::mutate(text =  dplyr::case_match({{var}},
                                             "behandlingsplan" ~ config$kvalind$behandlingsplan$forklaring,
                                             "kriseplan" ~ config$kvalind$kriseplan$forklaring,
-                                            "utbytte" ~ config$kvalind$utbytte$forklaring),
+                                            "utbytte" ~ config$kvalind$utbytte$forklaring,
+                                            .default = config$kvalind$default$forklaring),
       header = dplyr::case_match({{var}},
                                  "behandlingsplan" ~ "Behandlingsplan på plass tidlig i forløpet",
                                  "kriseplan" ~ "Kriseplan på plass tidlig i forløpet",

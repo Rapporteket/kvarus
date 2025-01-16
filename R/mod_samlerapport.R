@@ -1,8 +1,7 @@
-#' Shiny module providing GUI and server logic for the report tab
+#' Shiny module providing GUI for the report tab
 #'
 #' @param id Character string module namespace
-NULL
-
+#' @export
 samlerapport_ui <- function(id) {
   ns <- shiny::NS(id)
 
@@ -40,6 +39,10 @@ samlerapport_ui <- function(id) {
   )
 }
 
+#' Shiny module providing server logic for the report tab
+#'
+#' @param id Character string module namespace
+#' @export
 samlerapport_server <- function(id) {
   shiny::moduleServer(
     id,

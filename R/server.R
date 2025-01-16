@@ -6,7 +6,6 @@
 #'
 #' @return A shiny app server object
 #' @export
-
 app_server <- function(input, output, session) {
   # Brukerinformasjon i menylinja (navbar)
   output$appUserName <- shiny::renderText(

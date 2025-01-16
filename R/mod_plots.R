@@ -1,8 +1,7 @@
-#' Shiny module providing GUI and server logic for the plot tab
+#' Shiny module providing GUI for the plot tab
 #'
 #' @param id Character string module namespace
-NULL
-
+#' @export
 plots_ui <- function(id) {
   ns <- shiny::NS(id)
 
@@ -31,6 +30,10 @@ plots_ui <- function(id) {
   )
 }
 
+#' Shiny module providing server logic for the plot tab
+#'
+#' @param id Character string module namespace
+#' @export
 plots_server <- function(id) {
   shiny::moduleServer(
     id,

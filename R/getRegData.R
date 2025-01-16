@@ -5,7 +5,6 @@
 #' @param registryName String providing the current registryName
 #' @return regData data frame
 #' @export
-
 getRegData <- function(registryName) {
 
   # nocov start
