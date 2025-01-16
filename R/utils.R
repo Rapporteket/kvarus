@@ -1,5 +1,5 @@
-
-#' @rdname config
+#' Get config for kvarus
+#'
 #' @export
 get_config <- function() {
   config_file <- "inst/config.yml"

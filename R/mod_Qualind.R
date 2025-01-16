@@ -63,8 +63,6 @@ module_kvalitetsindikator_server <- function(id) {
       ### Load in data ###
       punktData <- getTimepointData()
 
-      basisData <- getBasisData()
-
       ### Clean and tidy data ###
       punktData <- prePros(punktData)
 

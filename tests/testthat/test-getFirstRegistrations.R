@@ -13,7 +13,7 @@ test_that("The first registrations are correctly filtered", {
 
   testData <- testData[sample(1:9), ]
 
-  filteredData <- getFirstRegistrations(testData) %>% dplyr::arrange(PasientGUID) %>% as.data.frame()
+  filteredData <- getFirstRegistrations(testData) |> dplyr::arrange(PasientGUID) |> as.data.frame()
 
   expectedData <- data.frame(PasientGUID = c("id1", "id2", "id3"), dato_mp_beh = rep(date1, 3))
 

@@ -6,16 +6,7 @@
 #'
 #' @return A shiny app server object
 #' @export
-
 app_server <- function(input, output, session) {
-
-# loading libraries
-  library(ggplot2)
-  library(dplyr)
-  library(tidyr)
-  library(DT)
-  library(bslib)
-
   # Brukerinformasjon i menylinja (navbar)
   output$appUserName <- shiny::renderText(
     paste(rapbase::getUserFullName(session),
@@ -38,16 +29,7 @@ app_server <- function(input, output, session) {
   veiledning_server("veiledning")
   plots_server("plots")
   samlerapport_server("samlerapport")
-
-  ##############################################################################
-  ##### TAB: Kvalitetsindikatorer ##############################################
-
   module_kvalitetsindikator_server("kval1")
-
-  ##############################################################################
-
-
   abonnement_server("abonnement")
-  abonnementV2_server("abonnementV2")
   utsending_server("utsending")
 }

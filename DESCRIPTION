@@ -23,7 +23,8 @@ Imports:
   ggplot2,
   tidyr,
   bslib,
-  yaml
+  yaml,
+  rlang,
 Remotes:
   Rapporteket/rapbase
 License: GPL-3

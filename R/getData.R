@@ -1,5 +1,3 @@
-library(readxl)
-
 #' Provide dataframe of fake registry data
 #'
 #' Provides a dataframe containing built-in data (and not a registry) for demo
@@ -9,7 +7,7 @@ library(readxl)
 #' @export
 getBasisData <- function() {
 
-  basisData <- readxl::read_excel("/home/rstudio/kvarus/DataDump_MRS-DEMO_Basisopplysninger_2024-10-28_1403.xlsx") %>%
+  basisData <- readxl::read_excel("/home/rstudio/kvarus/DataDump_MRS-DEMO_Basisopplysninger_2024-10-28_1403.xlsx") |>
     as.data.frame()
 
   return(basisData)
@@ -18,7 +16,7 @@ getBasisData <- function() {
 #' @export
 
 getTimepointData <- function() {
-  timepointData <- readxl::read_excel("/home/rstudio/kvarus/DataDump_MRS-DEMO_Målepunkt_2024-10-28_1403.xlsx") %>%
+  timepointData <- readxl::read_excel("/home/rstudio/kvarus/DataDump_MRS-DEMO_Målepunkt_2024-10-28_1403.xlsx") |>
     as.data.frame()
 
   return(timepointData)

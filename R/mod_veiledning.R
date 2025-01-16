@@ -1,8 +1,7 @@
-#' Shiny module providing GUI and server logic for the intro tab
+#' Shiny module providing GUI for the intro tab
 #'
 #' @param id Character string module namespace
-NULL
-
+#' @export
 veiledning_ui <- function(id) {
   ns <- shiny::NS(id)
 
@@ -17,11 +16,14 @@ veiledning_ui <- function(id) {
   )
 }
 
+#' Shiny module providing server logic for the intro tab
+#'
+#' @param id Character string module namespace
+#' @export
 veiledning_server <- function(id) {
   shiny::moduleServer(
     id,
     function(input, output, session) {
-      ns <- session$ns
 
       # Veiledning
       output$veiledning <- shiny::renderUI({
