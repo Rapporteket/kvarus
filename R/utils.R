@@ -1,4 +1,3 @@
-
 #' Get config for kvarus
 #'
 #' @export
