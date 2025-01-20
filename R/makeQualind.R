@@ -58,12 +58,11 @@ kval_count <- function(data, var) { # legg evt. til flere variabler her avhengig
   magnus <- jak %>%
     dplyr::mutate(andel_per_syk = round(.data$antall_kval_syk / .data$per_syk * 100, 2))
 
-
-  return(magnus)
+    return(magnus)
 }
 # nolint start
 # testing:
-## kval <-  kval_count(punktData, "gjensidig") # nolint
+## kval <-  kval_count(punktData, "behandlingsplan") # nolint
 
 # Test for å sjekke:
 ## k <- kval_count(punktData, "behandlingsplan")

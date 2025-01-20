@@ -26,9 +26,8 @@ module_kvalitetsindikator_ui <- function(id) {
                            shiny::plotOutput(outputId = ns("kval_plot")),
                            shiny::downloadButton(ns("download_fig"), "Last ned figur")),
           bslib::nav_panel("Tabell",
-                           DT::DTOutput(outputId = ns("kval_table")),
-                           shiny::downloadButton(ns("download_tbl"), "Last ned tabell", class = "butt2"))
-        ),
+                           DT::DTOutput(outputId = ns("kval_table"))
+        )),
 
         bslib::navset_card_underline(
           title = shiny::h4("Slik er kvalitetsindikatoren regnet ut:"),
@@ -101,15 +100,27 @@ module_kvalitetsindikator_server <- function(id) {
         {
           DT::datatable(
             kval_df_reactive(),
+            extensions = "Buttons",
             class = "white-space:nowrap compact",
             colnames = c("Sykehus",
                          "Antall nasjonalt",
                          "Antall per sykehus",
                          "Antall - kvalitetsindikator",
-                         "Andel - kvalitetsindikator")
-          )
+                         "Andel - kvalitetsindikator"),
+            options = list(paging = TRUE,
+                           scrollX=TRUE,
+                           searching = TRUE,
+                           ordering = TRUE,
+                           dom = 'Bfrtip',
+                           buttons = c('copy', 'csv', 'excel', 'pdf'),
+                           pageLength=30,
+                           lengthMenu=c(3,5,10)
+                           )
+            )
         }
       )
+
+
 
       ###### NEDLASTING FIGUR/TABELL #################################################
 
