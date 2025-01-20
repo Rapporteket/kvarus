@@ -10,10 +10,9 @@ makeGGdata <- function(var, type_plot) {
         title = dplyr::case_when({{var}} == "behandlingsplan" ~ config$kvalind$behandlingsplan$tittel,
                                  {{var}} == "kriseplan" ~ config$kvalind$kriseplan$tittel,
                                  {{var}} == "utbytte" ~ config$kvalind$utbytte$tittel,
+                                 {{var}} == "gjensidig" ~ config$kvalind$gjensidig$tittel,
                                  .default = config$kvalind$default$tittel),
-        xlab = dplyr::case_when({{var}} == "behandlingsplan" ~ "Andel pasienter",
-                                {{var}} == "kriseplan" ~ "Andel pasienter",
-                                {{var}} == "utbytte" ~ "Andel pasienter")
+        xlab = "Andel pasienter"
       )
   }
 
