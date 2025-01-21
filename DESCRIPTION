@@ -25,6 +25,7 @@ Imports:
   bslib,
   yaml,
   rlang,
+  NHSRplotthedots
 Remotes:
   Rapporteket/rapbase
 License: GPL-3
