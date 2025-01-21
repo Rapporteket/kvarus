@@ -13,8 +13,7 @@ module_kvalitetsindikator_ui <- function(id) {
           choices = c(
             "Behandlingsplan på plass tidlig i forløpet" = "behandlingsplan",
             "Kriseplan på plass tidlig i forløpet" = "kriseplan",
-            "Opplevd stort utbytte" = "utbytte",
-            "Avsluttet behandling med gjensidig avtale" = "gjensidig"
+            "Opplevd stort utbytte" = "utbytte"
           ),
           selected = "behandlingsplan"
         )
