@@ -1,6 +1,7 @@
 #' Shiny module providing GUI for the subscription tab
 #'
 #' @param id Character string module namespace
+#' @export
 abonnement_ui <- function(id) {
   ns <- shiny::NS(id)
 
