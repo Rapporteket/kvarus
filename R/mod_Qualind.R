@@ -26,8 +26,7 @@ module_kvalitetsindikator_ui <- function(id) {
                            shiny::plotOutput(outputId = ns("kval_plot")),
                            shiny::downloadButton(ns("download_fig"), "Last ned figur")),
           bslib::nav_panel("Tabell",
-                           DT::DTOutput(outputId = ns("kval_table")),
-                           shiny::downloadButton(ns("download_tbl"), "Last ned tabell", class = "butt2"))
+                           DT::DTOutput(outputId = ns("kval_table")))
         ),
 
         bslib::navset_card_underline(
@@ -101,6 +100,10 @@ module_kvalitetsindikator_server <- function(id) {
         {
           DT::datatable(
             kval_df_reactive(),
+            extensions = 'Buttons',
+            options = list(
+              dom = 'Bfrtip',
+              buttons = c('copy', 'csv', 'excel','pdf')),
             class = "white-space:nowrap compact",
             colnames = c("Sykehus",
                          "Antall nasjonalt",

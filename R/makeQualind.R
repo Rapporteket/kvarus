@@ -18,7 +18,7 @@ kval_count <- function(data, var) { # legg evt. til flere variabler her avhengig
       dplyr::filter(.data$behandlingsstatus %in% c("avsluttet med gjensidig avtale", "avbrutt"))
   } else { # Prosessindikatorene med KUN: første målepunkt ######################
 
-    data <- getFirstRegistrations(punktData)
+    data <- getFirstRegistrations(data)
 
     data <- data %>%
       dplyr::filter(.data$behandlingsstatus == "aktiv")
