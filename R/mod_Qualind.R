@@ -100,10 +100,9 @@ module_kvalitetsindikator_server <- function(id) {
         {
           DT::datatable(
             kval_df_reactive(),
-            extensions = 'Buttons',
-            options = list(
-              dom = 'Bfrtip',
-              buttons = c('copy', 'csv', 'excel','pdf')),
+            extensions = "Buttons",
+            options = list(dom = "Bfrtip",
+                           buttons = c("copy", "csv", "excel", "pdf")),
             class = "white-space:nowrap compact",
             colnames = c("Sykehus",
                          "Antall nasjonalt",
