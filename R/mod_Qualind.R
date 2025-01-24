@@ -13,7 +13,8 @@ module_kvalitetsindikator_ui <- function(id) {
           choices = c(
             "Behandlingsplan på plass tidlig i forløpet" = "behandlingsplan",
             "Kriseplan på plass tidlig i forløpet" = "kriseplan",
-            "Opplevd stort utbytte" = "utbytte"
+            "Opplevd stort utbytte" = "utbytte",
+            "Avsluttet behandling med gjensidig avtale" = "gjensidig"
           ),
           selected = "behandlingsplan"
         )
@@ -25,8 +26,9 @@ module_kvalitetsindikator_ui <- function(id) {
                            shiny::plotOutput(outputId = ns("kval_plot")),
                            shiny::downloadButton(ns("download_fig"), "Last ned figur")),
           bslib::nav_panel("Tabell",
-                           DT::DTOutput(outputId = ns("kval_table"))
-        )),
+                           DT::DTOutput(outputId = ns("kval_table")),
+                           shiny::downloadButton(ns("download_tbl"), "Last ned tabell", class = "butt2"))
+        ),
 
         bslib::navset_card_underline(
           title = shiny::h4("Slik er kvalitetsindikatoren regnet ut:"),
@@ -99,27 +101,15 @@ module_kvalitetsindikator_server <- function(id) {
         {
           DT::datatable(
             kval_df_reactive(),
-            extensions = "Buttons",
             class = "white-space:nowrap compact",
             colnames = c("Sykehus",
                          "Antall nasjonalt",
                          "Antall per sykehus",
                          "Antall - kvalitetsindikator",
-                         "Andel - kvalitetsindikator"),
-            options = list(paging = TRUE,
-                           scrollX=TRUE,
-                           searching = TRUE,
-                           ordering = TRUE,
-                           dom = 'Bfrtip',
-                           buttons = c('copy', 'csv', 'excel', 'pdf'),
-                           pageLength=30,
-                           lengthMenu=c(3,5,10)
-                           )
-            )
+                         "Andel - kvalitetsindikator")
+          )
         }
       )
-
-
 
       ###### NEDLASTING FIGUR/TABELL #################################################
 

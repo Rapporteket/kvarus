@@ -1,17 +1,6 @@
 #' @export
 
-kval_count <- function(punktData, var) { # legg evt. til flere variabler her avhengig av brukervalg
-
-  # Prosessindikatorene med KUN: første målepunkt ##############################
-
-  ###### ONLY FIRST POINT OF MEASURE ###########################################
-  data <- getFirstRegistrations(punktData)
-
-  data <- data %>%
-    dplyr::filter(.data$behandlingsstatus == "aktiv")
-
-  #data <- data %>% # nolint
-  #  filter(Sykehus != "NA") # nolint
+kval_count <- function(data, var) { # legg evt. til flere variabler her avhengig av brukervalg
 
   ##### Make tiny data set with counts #########################################
   my_tiny_data <- data %>%
@@ -22,6 +11,21 @@ kval_count <- function(punktData, var) { # legg evt. til flere variabler her avh
     dplyr::select(.data$Sykehus, .data$alle, .data$per_syk) %>%
     dplyr::distinct()
 
+  # ### Prosessindikatorer som ikke ser på første målepunkt ######################
+
+  if (var == "gjensidig") {
+    data <- data %>%
+      dplyr::filter(.data$behandlingsstatus %in% c("avsluttet med gjensidig avtale", "avbrutt"))
+  } else { # Prosessindikatorene med KUN: første målepunkt ######################
+
+    data <- getFirstRegistrations(punktData)
+
+    data <- data %>%
+      dplyr::filter(.data$behandlingsstatus == "aktiv")
+  }
+
+  #data <- data %>% # nolint
+  #  filter(Sykehus != "NA") # nolint
 
   ###### Filter based on kvalitetsindikatorer ##################################
 
@@ -32,6 +36,8 @@ kval_count <- function(punktData, var) { # legg evt. til flere variabler her avh
                                      kriseplan == "ja",
                                    {{var}} == "utbytte" ~
                                      eval_utbytte %in% c(4, 5),
+                                   {{var}} == "gjensidig" ~
+                                     behandlingsstatus == "avsluttet med gjensidig avtale",
                                    ## Legg evt. til flere variabler her
                                    TRUE ~
                                      behandlingsplan != "ja")) %>%
@@ -50,15 +56,14 @@ kval_count <- function(punktData, var) { # legg evt. til flere variabler her avh
 
 
   magnus <- jak %>%
-    dplyr::mutate(
-      andel_per_syk = round(.data$antall_kval_syk / .data$per_syk * 100, 2)
-    )
+    dplyr::mutate(andel_per_syk = round(.data$antall_kval_syk / .data$per_syk * 100, 2))
 
-    return(magnus)
+
+  return(magnus)
 }
 # nolint start
 # testing:
-## kval <-  kval_count(punktData, "utbytte") # nolint
+## kval <-  kval_count(punktData, "gjensidig") # nolint
 
 # Test for å sjekke:
 ## k <- kval_count(punktData, "behandlingsplan")
@@ -91,11 +96,13 @@ annotations <- function(var) {
   anno <- anno %>%
     dplyr::mutate(xmin = dplyr::case_when({{var}} == "behandlingsplan" ~ 80,
                                           {{var}} == "kriseplan" ~ 60,
-                                          {{var}} == "utbytte" ~ 80),
+                                          {{var}} == "utbytte" ~ 80,
+                                          {{var}} == "gjensidig" ~ 80),
       xmax_moderate = .data$xmin,
       xmin_moderate = dplyr::case_when({{var}} == "behandlingsplan" ~ 60,
                                        {{var}} == "kriseplan" ~ 40,
-                                       {{var}} == "utbytte" ~ 60)
+                                       {{var}} == "utbytte" ~ 60,
+                                       {{var}} == "gjensidig" ~ 60)
     )
 
   return(anno)
@@ -111,28 +118,6 @@ annotations <- function(var) {
 # "anno" is the data frame made by "annotations"
 
 # nolint end
-
-#'@export
-makeGGdata <- function(var, type_plot) {
-  ggdata <- data.frame(title = "", xlab = "")
-
-  config <- get_config()
-
-  if (type_plot == "kval") {
-    ggdata <- ggdata |>
-      dplyr::mutate(
-        title = dplyr::case_when({{var}} == "behandlingsplan" ~ config$kvalind$behandlingsplan$tittel,
-                                 {{var}} == "kriseplan" ~ config$kvalind$kriseplan$tittel,
-                                 {{var}} == "utbytte" ~ config$kvalind$utbytte$tittel,
-                                 {{var}} == "gjensidig" ~ config$kvalind$gjensidig$tittel,
-                                 .default = config$kvalind$default$tittel),
-        xlab = "Andel pasienter"
-      )
-  }
-
-  return(ggdata)
-}
-
 
 #' @export
 
@@ -201,11 +186,13 @@ explanation_kvalind <- function(var) {
                                             "behandlingsplan" ~ config$kvalind$behandlingsplan$forklaring,
                                             "kriseplan" ~ config$kvalind$kriseplan$forklaring,
                                             "utbytte" ~ config$kvalind$utbytte$forklaring,
+                                            "gjensidig" ~ config$kvalind$gjensidig$forklaring,
                                             .default = config$kvalind$default$forklaring),
       header = dplyr::case_match({{var}},
                                  "behandlingsplan" ~ "Behandlingsplan på plass tidlig i forløpet",
                                  "kriseplan" ~ "Kriseplan på plass tidlig i forløpet",
-                                 "utbytte" ~ "Stort utbytte av behandlingen")
+                                 "utbytte" ~ "Stort utbytte av behandlingen",
+                                 "gjensidig" ~ "Gjensidig avslutning av behandlingen")
     )
 
   return(data)
