@@ -1,57 +1,57 @@
-#' Client (ui) for the kvarus app
+#' Client (ui) for the rapRegTemplate app
 #'
 #' @return An shiny app ui object
 #' @export
+
 app_ui <- function() {
 
-  shiny::addResourcePath("rap", system.file("www", package = "rapbase"))
-  regTitle <- "kvarus"
+  regTitle <- "rapRegTemplate"
 
   shiny::tagList(
     shiny::navbarPage(
-      title = shiny::div(
-        shiny::a(shiny::includeHTML(
-          system.file("www/logo.svg", package = "rapbase")
-        )
-        ),
-        regTitle
-      ),
+      title = rapbase::regTitle(regTitle),
       windowTitle = regTitle,
-      theme = "rap/bootstrap.css",
+      theme = rapbase::rapTheme(version = 5),
       id = "tabs",
-
       shiny::tabPanel(
-        "Veiledning",
-        veiledning_ui("veiledning")
+        "Informasjon",
+        info_ui("info"),
+        rapbase::navbarWidgetInput("navbar-widget", selectOrganization = TRUE)
       ),
       shiny::tabPanel(
-        "Figur og tabell",
-        plots_ui("plots")
+        "Fordeling",
+        mod_fordeling_plot_ui("fordeling")
       ),
-
-
-      ################################################################################
-      ##### TAB: Kvalitetsindikatorer ################################################
-
-      shiny:: tabPanel(
-        title = "Kvalitetsindikatorer",
-        module_kvalitetsindikator_ui("kval1")
+      shiny::tabPanel(
+        "Over tid",
+        mod_over_tid_ui("over_tid")
       ),
-
+      shiny::tabPanel(
+        "Andeler",
+        mod_andeler_ui("andeler")
+      ),
       shiny::tabPanel(
         "Samlerapport",
         samlerapport_ui("samlerapport")
       ),
       shiny::tabPanel(
-        shiny::span("Abonnement",
-                    title = "Bestill tilsending av rapporter p\u00e5 e-post"),
-        abonnement_ui("abonnement")
+        "Pivot-tabell",
+        pivot_ui("pivot")
       ),
       shiny::tabPanel(
-        "Utsending",
-        utsending_ui("utsending")
+        shiny::span(
+          "Abonnement",
+          title = "Bestill tilsending av rapporter p\u00e5 e-post"
+        ),
+        shiny::sidebarLayout(
+          shiny::sidebarPanel(
+            rapbase::autoReportInput("subscription")
+          ),
+          shiny::mainPanel(
+            rapbase::autoReportUI("subscription")
+          )
+        )
       )
-
     ) # navbarPage
   ) # tagList
 }

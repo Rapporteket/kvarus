@@ -1,52 +1,44 @@
-#' Shiny module providing GUI for the subscription tab
+#' Shiny module providing GUI and server logic for the subscription v2 tab
 #'
 #' @param id Character string module namespace
+#' @return An shiny app ui object
+
 abonnement_ui <- function(id) {
-  ns <- shiny::NS(id)
 
   shiny::sidebarLayout(
     shiny::sidebarPanel(
-      rapbase::autoReportInput(ns("testSubscription"))
+      rapbase::autoReportInput(id)
     ),
     shiny::mainPanel(
-      rapbase::autoReportUI(ns("testSubscription"))
+      rapbase::autoReportUI(id)
     )
   )
 }
 
-#' Shiny module providing server logic for the subscription tab
-#'
-#' @param id Character string module namespace
-#' @export
-abonnement_server <- function(id) {
-  shiny::moduleServer(
-    id,
-    function(input, output, session) {
+abonnement_server <- function(id, user) {
 
-      ## nye abonnement
-      ## Objects currently shared among subscription and dispathcment
-      orgs <- list(Sykehus1 = 1234,
-                   Sykehus2 = 4321)
-      reports <- list(
-        Samlerapport1 = list(
-          synopsis = "Automatisk samlerapport1",
-          fun = "samlerapport1Fun",
-          paramNames = c("p1", "p2"),
-          paramValues = c("Alder", 1)
-        ),
-        Samlerapport2 = list(
-          synopsis = "Automatisk samlerapport2",
-          fun = "samlerapport2Fun",
-          paramNames = c("p1", "p2"),
-          paramValues = c("BMI", 1)
-        )
-      )
+  ## nye abonnement
+  ## Objects currently shared among subscription and dispathcment
+  orgs <- list(Sykehus1 = 1234,
+               Sykehus2 = 4321)
+  reports <- list(
+    Samlerapport1 = list(
+      synopsis = "Automatisk samlerapport1",
+      fun = "samlerapport1Fun",
+      paramNames = c("p1", "p2"),
+      paramValues = c("Alder", 1)
+    ),
+    Samlerapport2 = list(
+      synopsis = "Automatisk samlerapport2",
+      fun = "samlerapport2Fun",
+      paramNames = c("p1", "p2"),
+      paramValues = c("BMI", 1)
+    )
+  )
 
-      ## Subscription
-      rapbase::autoReportServer(
-        id = "testSubscription", registryName = "kvarus",
-        type = "subscription", reports = reports, orgs = orgs, freq = "quarter"
-      )
-    }
+  ## Subscription
+  rapbase::autoReportServer(
+    id = id, registryName = "rapRegTemplate",
+    type = "subscription", reports = reports, orgs = orgs, freq = "quarter", user = user
   )
 }

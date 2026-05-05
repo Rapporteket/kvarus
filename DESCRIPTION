@@ -3,28 +3,31 @@ Type: Package
 Title: Rapportek for kvarus
 Version: 1.2.0
 Authors@R: c(
-    person(given = "Stein-Kato",
-           family = "Lindberg",
+    person(given = "Petter",
+           family = "Linberg",
+           role = c("aut"),
+           email = "petter.linberg@helse-nord.no"),
+    person(given = "Arnfinn Hykkerud",
+           family = "Steindal",
            role = c("aut", "cre"),
-           email = "stein-kato.lindberg@helse-nord.no",
-           comment = c(ORCID = "0000-0001-6088-255X")))
-Maintainer: Stein-Kato Lindberg <stein-kato.lindberg@helse-nord.no>
+           email = "arnfinn.steindal@gmail.com",
+           comment = c(ORCID = "0000-0002-4088-7860")))
+Maintainer: Arnfinn Hykkerud Steindal <arnfinn.steindal@gmail.com>
 Description: Rapportek for kvarus
 Depends:
-  R (>= 3.5.0)
+  R (>= 4.1.0)
 Imports:
-  DT,
-  magrittr,
-  rapbase,
-  shiny,
-  shinyalert,
-  readxl,
-  dplyr,
-  ggplot2,
-  tidyr,
-  bslib,
-  yaml,
-  rlang,
+    dplyr,
+    DT,
+    ggplot2,
+    kableExtra,
+    knitr,
+    palmerpenguins,
+    rapbase (>= 3.6.0),
+    rlang,
+    rpivotTable,
+    shiny,
+    shinyalert
 Remotes:
   Rapporteket/rapbase
 License: GPL-3

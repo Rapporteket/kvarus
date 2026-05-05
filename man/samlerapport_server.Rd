@@ -2,13 +2,16 @@
 % Please edit documentation in R/mod_samlerapport.R
 \name{samlerapport_server}
 \alias{samlerapport_server}
-\title{Shiny module providing server logic for the report tab}
+\title{Server logic for samlerapport}
 \usage{
 samlerapport_server(id)
 }
 \arguments{
 \item{id}{Character string module namespace}
 }
+\value{
+A Shiny app server object
+}
 \description{
-Shiny module providing server logic for the report tab
+Server logic for samlerapport
 }

@@ -1,32 +1,42 @@
+x-environment: &environment
+  MYSQL_HOST: db
+  MYSQL_USER: root
+  MYSQL_PASSWORD: root
+  MYSQL_DB_LOG: raplog
+  MYSQL_DB_AUTOREPORT: autoreport
+  FALK_APP_ID: 80
+  FALK_EXTENDED_USER_RIGHTS: "[{\"A\":80,\"R\":\"LC\",\"U\":1},{\"A\":80,\"R\":\"SC\",\"U\":2},{\"A\":81,\"R\":\"LC\",\"U\":2}]"
+  USERORGID: "pilot"
+  SHINYPROXY_USERNAME: test@tester.no
+  SHINYPROXY_USERGROUPS: "pilot"
+
+
 services:
   db:
     image: mysql:8
-    command: --innodb-log-file-size=500M --innodb_strict_mode=0
     restart: "no"
     environment:
       MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./dev/db:/docker-entrypoint-initdb.d
 
   dev:
     depends_on:
       - db
-    image: rapporteket/kvarus-dev:main
+      - mssql
+    image: rapporteket/rstudio:main
     volumes:
       - ~/.ssh:/home/rstudio/.ssh
       - ~/.gitconfig:/home/rstudio/.gitconfig
-      - .:/home/rstudio/kvarus
-      - ../rapbase:/home/rstudio/rapbase
+      - ../rapbase/.:/home/rstudio/rapbase
+      - .:/home/rstudio/rapregtemplate
     ports:
       - "8787:8787"
-      - "3838:3838"
-    dns:
-      - 8.8.8.8
     restart: "no"
     environment:
+      << : *environment
       DISABLE_AUTH: "true"
-      DB_HOST: db
-      DB_USER: root
-      DB_PASS: root
-    platform: linux/amd64
+      FALK_EXTENDED_USER_RIGHTS: "[{\\\"A\\\":80,\\\"R\\\":\\\"LC\\\",\\\"U\\\":1},{\\\"A\\\":80,\\\"R\\\":\\\"SC\\\",\\\"U\\\":2},{\\\"A\\\":81,\\\"R\\\":\\\"LC\\\",\\\"U\\\":2}]"
 
   adminer:
     depends_on:

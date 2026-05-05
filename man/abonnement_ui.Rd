@@ -2,13 +2,16 @@
 % Please edit documentation in R/mod_abonnement.R
 \name{abonnement_ui}
 \alias{abonnement_ui}
-\title{Shiny module providing GUI for the subscription tab}
+\title{Shiny module providing GUI and server logic for the subscription v2 tab}
 \usage{
 abonnement_ui(id)
 }
 \arguments{
 \item{id}{Character string module namespace}
 }
+\value{
+An shiny app ui object
+}
 \description{
-Shiny module providing GUI for the subscription tab
+Shiny module providing GUI and server logic for the subscription v2 tab
 }

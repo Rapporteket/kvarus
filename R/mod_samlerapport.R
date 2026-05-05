@@ -1,19 +1,21 @@
-#' Shiny module providing GUI for the report tab
+#' Shiny module providing GUI and server logic for the report tab
 #'
 #' @param id Character string module namespace
+#' @return An shiny app ui object
 #' @export
+
 samlerapport_ui <- function(id) {
   ns <- shiny::NS(id)
 
   shiny::tabPanel(
-    "Fordeling",
+    "Fordeling av mpg",
     shiny::sidebarLayout(
       shiny::sidebarPanel(
         width = 3,
         shiny::selectInput(
           inputId = ns("varS"),
           label = "Variabel:",
-          c("mpg", "cyl", "disp", "hp", "drat")
+          c("mpg", "disp", "hp", "drat", "wt", "qsec")
         ),
         shiny::sliderInput(
           inputId = ns("binsS"),
@@ -39,10 +41,13 @@ samlerapport_ui <- function(id) {
   )
 }
 
-#' Shiny module providing server logic for the report tab
+#' Server logic for samlerapport
 #'
 #' @param id Character string module namespace
+#'
+#' @return A Shiny app server object
 #' @export
+
 samlerapport_server <- function(id) {
   shiny::moduleServer(
     id,
@@ -52,7 +57,7 @@ samlerapport_server <- function(id) {
       ## vis
       output$samlerapport <- shiny::renderUI({
         rapbase::renderRmd(
-          system.file("samlerapport.Rmd", package = "kvarus"),
+          system.file("samlerapport.Rmd", package = "rapRegTemplate"),
           outputType = "html_fragment",
           params = list(type = "html",
                         var = input$varS,
@@ -63,12 +68,12 @@ samlerapport_server <- function(id) {
       ## last ned
       output$downloadSamlerapport <- shiny::downloadHandler(
         filename = function() {
-          basename(tempfile(pattern = "kvarusSamlerapport",
+          basename(tempfile(pattern = "rapRegTemplateSamlerapport",
                             fileext = paste0(".", input$formatS)))
         },
         content = function(file) {
           srcFile <-
-            normalizePath(system.file("samlerapport.Rmd", package = "kvarus"))
+            normalizePath(system.file("samlerapport.Rmd", package = "rapRegTemplate"))
           fn <- rapbase::renderRmd(srcFile, outputType = input$formatS,
                                    params = list(type = input$formatS,
                                                  var = input$varS,

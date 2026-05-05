@@ -2,13 +2,16 @@
 % Please edit documentation in R/mod_samlerapport.R
 \name{samlerapport_ui}
 \alias{samlerapport_ui}
-\title{Shiny module providing GUI for the report tab}
+\title{Shiny module providing GUI and server logic for the report tab}
 \usage{
 samlerapport_ui(id)
 }
 \arguments{
 \item{id}{Character string module namespace}
 }
+\value{
+An shiny app ui object
+}
 \description{
-Shiny module providing GUI for the report tab
+Shiny module providing GUI and server logic for the report tab
 }

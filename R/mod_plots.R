@@ -1,25 +1,16 @@
-#' Shiny module providing GUI for the plot tab
+#' Shiny module providing GUI and server logic for the plot tab
 #'
 #' @param id Character string module namespace
-#' @export
+#' @return An shiny app ui object
+
 plots_ui <- function(id) {
   ns <- shiny::NS(id)
 
   shiny::sidebarLayout(
     shiny::sidebarPanel(
       width = 3,
-      shiny::selectInput(
-        inputId = ns("var"),
-        label = "Variabel:",
-        c("PatientAge", "oppfolging_nav_frekvens")
-      ),
-      shiny::sliderInput(
-        inputId = ns("bins"),
-        label = "Antall grupper:",
-        min = 1,
-        max = 10,
-        value = 5
-      )
+      shiny::uiOutput(shiny::NS(id, "select_x")),
+      shiny::uiOutput(shiny::NS(id, "select_y"))
     ),
     shiny::mainPanel(
       shiny::tabsetPanel(
@@ -30,28 +21,38 @@ plots_ui <- function(id) {
   )
 }
 
-#' Shiny module providing server logic for the plot tab
-#'
-#' @param id Character string module namespace
-#' @export
 plots_server <- function(id) {
   shiny::moduleServer(
     id,
     function(input, output, session) {
 
       # Last inn data
-      basisData <- getBasisData()
+      regData <- getFakeRegData()
 
       # Figur og tabell
       # Figur
       output$distPlot <- shiny::renderPlot({
-        makeHist(df = basisData, var = input$var, bins = input$bins)
+        makeHist(df = regData, var = input$y, x = input$x)
       })
 
       # Tabell
       output$distTable <- shiny::renderTable({
-        makeHist(df = basisData, var = input$var, bins = input$bins,
+        makeHist(df = regData, var = input$var,
                  makeTable = TRUE)
+      })
+      output$select_x <- shiny::renderUI({
+        shiny::selectInput(
+          inputId = shiny::NS(id, "x"),
+          label = "Variabel:",
+          choices = names(regData)[1:4]
+        )
+      })
+      output$select_y <- shiny::renderUI({
+        shiny::selectInput(
+          inputId = shiny::NS(id, "y"),
+          label = "Variabel:",
+          choices = names(regData)[-1:-4]
+        )
       })
     }
   )

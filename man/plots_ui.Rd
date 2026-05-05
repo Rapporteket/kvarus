@@ -2,13 +2,16 @@
 % Please edit documentation in R/mod_plots.R
 \name{plots_ui}
 \alias{plots_ui}
-\title{Shiny module providing GUI for the plot tab}
+\title{Shiny module providing GUI and server logic for the plot tab}
 \usage{
 plots_ui(id)
 }
 \arguments{
 \item{id}{Character string module namespace}
 }
+\value{
+An shiny app ui object
+}
 \description{
-Shiny module providing GUI for the plot tab
+Shiny module providing GUI and server logic for the plot tab
 }
