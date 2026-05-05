@@ -29,7 +29,7 @@ services:
       - ~/.ssh:/home/rstudio/.ssh
       - ~/.gitconfig:/home/rstudio/.gitconfig
       - ../rapbase/.:/home/rstudio/rapbase
-      - .:/home/rstudio/rapregtemplate
+      - .:/home/rstudio/kvarus
     ports:
       - "8787:8787"
     restart: "no"
