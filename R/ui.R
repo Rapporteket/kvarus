@@ -1,4 +1,4 @@
-#' Client (ui) for the rapRegTemplate app
+#' Client (ui) for the kvarus app
 #'
 #' @return An shiny app ui object
 #' @export

@@ -1,4 +1,4 @@
-#' Server logic for the rapRegTemplate app
+#' Server logic for the kvarus app
 #'
 #' @param input shiny input object
 #' @param output shiny output object
