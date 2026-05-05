@@ -17,17 +17,9 @@ Description: Rapportek for kvarus
 Depends:
   R (>= 4.1.0)
 Imports:
-    dplyr,
-    DT,
-    ggplot2,
-    kableExtra,
-    knitr,
-    palmerpenguins,
     rapbase (>= 3.6.0),
     rlang,
-    rpivotTable,
-    shiny,
-    shinyalert
+    shiny
 Remotes:
   Rapporteket/rapbase
 License: GPL-3

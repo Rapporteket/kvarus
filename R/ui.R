@@ -5,7 +5,7 @@
 
 app_ui <- function() {
 
-  regTitle <- "rapRegTemplate"
+  regTitle <- "kvarus"
 
   shiny::tagList(
     shiny::navbarPage(
@@ -17,40 +17,6 @@ app_ui <- function() {
         "Informasjon",
         info_ui("info"),
         rapbase::navbarWidgetInput("navbar-widget", selectOrganization = TRUE)
-      ),
-      shiny::tabPanel(
-        "Fordeling",
-        mod_fordeling_plot_ui("fordeling")
-      ),
-      shiny::tabPanel(
-        "Over tid",
-        mod_over_tid_ui("over_tid")
-      ),
-      shiny::tabPanel(
-        "Andeler",
-        mod_andeler_ui("andeler")
-      ),
-      shiny::tabPanel(
-        "Samlerapport",
-        samlerapport_ui("samlerapport")
-      ),
-      shiny::tabPanel(
-        "Pivot-tabell",
-        pivot_ui("pivot")
-      ),
-      shiny::tabPanel(
-        shiny::span(
-          "Abonnement",
-          title = "Bestill tilsending av rapporter p\u00e5 e-post"
-        ),
-        shiny::sidebarLayout(
-          shiny::sidebarPanel(
-            rapbase::autoReportInput("subscription")
-          ),
-          shiny::mainPanel(
-            rapbase::autoReportUI("subscription")
-          )
-        )
       )
     ) # navbarPage
   ) # tagList
