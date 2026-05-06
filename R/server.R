@@ -10,10 +10,17 @@
 app_server <- function(input, output, session) {
 
   # data.frame som mapper ReshID og sykehusnavn
-  map_orgname <- data.frame(
-    UnitId = c(111, 222, 333),
-    orgname = c("Sykehus 1", "Sykehus 2", "Sykehus 3")
-  )
+  unitAccessTree <- Sys.getenv("MRS_ACCESS_HIERARCHY_URL", unset = "noTree")
+  if (unitAccessTree != "noTree") {
+    units <- jsonlite::fromJSON(unitAccessTree)$AccessUnits
+    map_orgname <- data.frame(
+      UnitId = units$UnitId,
+      orgname = units$TitleWithPath
+    )
+  } else {
+    map_orgname <- NULL
+  }
+
   user <- rapbase::navbarWidgetServer2(
     "navbar-widget",
     orgName = "kvarus",
