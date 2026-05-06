@@ -17,6 +17,7 @@ Description: Rapportek for kvarus
 Depends:
   R (>= 4.1.0)
 Imports:
+    jsonlite,
     rapbase (>= 3.6.0),
     rlang,
     shiny
