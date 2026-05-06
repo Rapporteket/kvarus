@@ -6,30 +6,62 @@
 #'
 #' @return A shiny app server object
 #' @export
+
 app_server <- function(input, output, session) {
-  # Brukerinformasjon i menylinja (navbar)
-  output$appUserName <- shiny::renderText(
-    paste(rapbase::getUserFullName(session),
-      rapbase::getUserRole(session),
-      sep = ", "
-    )
+
+  # data.frame som mapper ReshID og sykehusnavn
+  map_orgname <- data.frame(
+    UnitId = c(111, 222, 333),
+    orgname = c("Sykehus 1", "Sykehus 2", "Sykehus 3")
   )
-  output$appOrgName <- shiny::renderText(rapbase::getUserReshId(session))
-  userInfo <-
-    rapbase::howWeDealWithPersonalData(session, callerPkg = "kvarus")
+  user <- rapbase::navbarWidgetServer2(
+    "navbar-widget",
+    orgName = "kvarus",
+    map_orgname = map_orgname,
+    caller = "kvarus"
+  )
 
-  shiny::observeEvent(input$userInfo, {
-    shinyalert::shinyalert("Dette vet Rapporteket om deg:", userInfo,
-      type = "", imageUrl = "rap/logo.svg",
-      closeOnEsc = TRUE, closeOnClickOutside = TRUE,
-      html = TRUE, confirmButtonText = rapbase::noOptOutOk()
-    )
-  })
+  info_server("info", user = user)
 
-  veiledning_server("veiledning")
-  plots_server("plots")
-  samlerapport_server("samlerapport")
-  module_kvalitetsindikator_server("kval1")
-  abonnement_server("abonnement")
-  utsending_server("utsending")
+  ################
+  # SC user tabs #
+  ################
+
+  shiny::observeEvent(
+    shiny::req(user$role()), {
+      if (user$role() != "SC") {
+        message("Removing export tab for user with role ", user$role())
+        shiny::removeTab("tabs", target = "Eksport")
+      } else {
+        message("Adding export tab for user with role ", user$role())
+        shiny::appendTab(
+          "tabs",
+          shiny::tabPanel(
+            "Eksport",
+            shiny::sidebarLayout(
+              shiny::sidebarPanel(
+                rapbase::exportUCInput("export")
+              ),
+              shiny::mainPanel(
+                rapbase::exportGuideUI("exportGuide")
+              )
+            )
+          )
+        )
+      }
+    }
+  )
+
+  ###############
+  # Export data #
+  ###############
+
+  ## brukerkontroller
+  rapbase::exportUCServer(
+    "export",
+    dbName = "data",
+    teamName = Sys.getenv("SHINYPROXY_APPID", unset = "unknown")
+  )
+  ## veiledning
+  rapbase::exportGuideServer("exportGuide", dbName = "data")
 }
