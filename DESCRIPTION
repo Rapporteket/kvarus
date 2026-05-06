@@ -1,7 +1,7 @@
 Package: kvarus
 Type: Package
 Title: Rapportek for kvarus
-Version: 1.2.0
+Version: 0.1.0
 Authors@R: c(
     person(given = "Petter",
            family = "Linberg",
