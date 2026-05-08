@@ -30,6 +30,7 @@ app_server <- function(input, output, session) {
 
   info_server("info", user = user)
   plots_server("plots")
+  module_qualind_server("kval1")
 
   ################
   # SC user tabs #

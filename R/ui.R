@@ -22,7 +22,10 @@ app_ui <- function() {
         "Figur og tabell",
         plots_ui("plots")
       ),
-
+      shiny:: tabPanel(
+        title = "Kvalitetsindikatorer",
+        module_kvalitetsindikator_ui("kval1")
+      )
     ) # navbarPage
   ) # tagList
 }
