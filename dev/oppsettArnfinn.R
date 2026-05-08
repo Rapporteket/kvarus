@@ -8,5 +8,3 @@ devtools::install(dependencies = FALSE)
 
 source("dev/sysSetenv.R")
 kvarus::run_app(browser = TRUE)
-
-units <- jsonlite::fromJSON(Sys.getenv("MRS_ACCESS_HIERARCHY_URL"))$AccessUnits

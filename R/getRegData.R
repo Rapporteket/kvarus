@@ -3,20 +3,10 @@
 #' @return regData data frame
 #' @export
 
-getRegData <- function() {
+getBasisData <- function() {
 
-  # nocov start
-  query <- "
-SELECT
-  AvdRESH AS Avdeling,
-  COUNT(*) AS n
-FROM
-  AlleVarNum
-GROUP BY
-  AvdRESH;
-"
+  query <- "SELECT * FROM basisopplysninger_1;"
 
   rapbase::loadRegData("data", query)
-  # nocov end
 
 }
