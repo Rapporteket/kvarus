@@ -2,8 +2,11 @@
 
 export(app_server)
 export(app_ui)
-export(getRegData)
+export(getBasisData)
 export(info_server)
 export(info_ui)
+export(makeHist)
+export(plots_server)
+export(plots_ui)
 export(run_app)
 importFrom(rlang,.data)

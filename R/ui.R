@@ -17,7 +17,12 @@ app_ui <- function() {
         "Informasjon",
         info_ui("info"),
         rapbase::navbarWidgetInput("navbar-widget", selectOrganization = TRUE)
-      )
+      ),
+      shiny::tabPanel(
+        "Figur og tabell",
+        plots_ui("plots")
+      ),
+
     ) # navbarPage
   ) # tagList
 }

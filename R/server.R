@@ -29,6 +29,7 @@ app_server <- function(input, output, session) {
   )
 
   info_server("info", user = user)
+  plots_server("plots")
 
   ################
   # SC user tabs #
