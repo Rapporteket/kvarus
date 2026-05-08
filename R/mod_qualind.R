@@ -21,15 +21,6 @@ module_kvalitetsindikator_ui <- function(id) {
       ),
 
       shiny::mainPanel(
-        bslib::navset_card_underline(
-          bslib::nav_panel("Figur",
-                           shiny::plotOutput(outputId = ns("kval_plot")),
-                           shiny::downloadButton(ns("download_fig"), "Last ned figur")),
-          bslib::nav_panel("Tabell",
-                           DT::DTOutput(outputId = ns("kval_table")))
-        ),
-
-        shiny::h4("Slik er kvalitetsindikatoren regnet ut:"),
         shiny::strong(
           shiny::textOutput(
             outputId = ns("text_header")
@@ -37,6 +28,13 @@ module_kvalitetsindikator_ui <- function(id) {
         ),
         shiny::htmlOutput(
           outputId = ns("text_body")
+        ),
+        bslib::navset_card_underline(
+          bslib::nav_panel("Figur",
+                           shiny::plotOutput(outputId = ns("kval_plot")),
+                           shiny::downloadButton(ns("download_fig"), "Last ned figur")),
+          bslib::nav_panel("Tabell",
+                           DT::DTOutput(outputId = ns("kval_table")))
         )
       )
     )
