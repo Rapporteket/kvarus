@@ -1,4 +1,16 @@
-#'@export
+#' Prepare Data for GGplot Visualization
+#'
+#' Transforms and organizes data into a format suitable for creating ggplot2
+#' visualizations based on the specified variable and plot type.
+#'
+#' @param var A variable or data object to be processed for visualization.
+#' @param type_plot A character string specifying the type of plot to generate
+#'   (e.g., "scatter", "line", "bar", "boxplot").
+#'
+#' @return A data frame or list formatted for use with ggplot2 functions.
+#'
+#' @keywords internal
+
 makeGGdata <- function(var, type_plot) {
   ggdata <- data.frame(title = "", xlab = "")
 
