@@ -42,17 +42,19 @@ kval_count <- function(data, var) { # legg evt. til flere variabler her avhengig
   ###### Filter based on kvalitetsindikatorer ##################################
 
   kval <- data |>
-    dplyr::filter(dplyr::case_when({{var}} == "behandlingsplan" ~
-                                     behandlingsplan == "ja",
-                                   {{var}} == "kriseplan" ~
-                                     kriseplan == "ja",
-                                   {{var}} == "utbytte" ~
-                                     eval_utbytte %in% c(4, 5),
-                                   {{var}} == "gjensidig" ~
-                                     behandlingsstatus == "avsluttet med gjensidig avtale",
-                                   ## Legg evt. til flere variabler her
-                                   TRUE ~
-                                     behandlingsplan != "ja")) |>
+    dplyr::filter(
+      if (var == "behandlingsplan") {
+        .data$behandlingsplan == "ja"
+      } else if (var == "kriseplan") {
+        .data$kriseplan == "ja"
+      } else if (var == "utbytte") {
+        .data$eval_utbytte %in% c(4, 5)
+      } else if (var == "gjensidig") {
+        .data$behandlingsstatus == "avsluttet med gjensidig avtale"
+      } else {
+        .data$behandlingsplan != "ja"
+      }
+    ) |>
     dplyr::group_by(.data$Sykehus) |>
     dplyr::count(name = "antall_kval_syk") |>
     dplyr::ungroup()
@@ -90,21 +92,28 @@ kval_count <- function(data, var) { # legg evt. til flere variabler her avhengig
 #' @keywords internal
 
 annotations <- function(var) {
-  anno <- data.frame(xmax = 100, # in most cases xmax would be 100%
-                     xmin = 0, # this must be altered
-                     xmax_moderate = 0, # this must be altered
-                     xmin_moderate = 0) # this must be altered
+  anno <- data.frame(
+    xmax = 100, # in most cases xmax would be 100%
+    xmin = 0, # this must be altered
+    xmax_moderate = 0, # this must be altered
+    xmin_moderate = 0 # this must be altered
+  )
 
   anno <- anno |>
-    dplyr::mutate(xmin = dplyr::case_when({{var}} == "behandlingsplan" ~ 80,
-                                          {{var}} == "kriseplan" ~ 60,
-                                          {{var}} == "utbytte" ~ 80,
-                                          {{var}} == "gjensidig" ~ 80),
+    dplyr::mutate(
+      xmin = dplyr::case_when(
+        {{var}} == "behandlingsplan" ~ 80,
+        {{var}} == "kriseplan" ~ 60,
+        {{var}} == "utbytte" ~ 80,
+        {{var}} == "gjensidig" ~ 80
+      ),
       xmax_moderate = .data$xmin,
-      xmin_moderate = dplyr::case_when({{var}} == "behandlingsplan" ~ 60,
-                                       {{var}} == "kriseplan" ~ 40,
-                                       {{var}} == "utbytte" ~ 60,
-                                       {{var}} == "gjensidig" ~ 60)
+      xmin_moderate = dplyr::case_when(
+        {{var}} == "behandlingsplan" ~ 60,
+        {{var}} == "kriseplan" ~ 40,
+        {{var}} == "utbytte" ~ 60,
+        {{var}} == "gjensidig" ~ 60
+      )
     )
 
   return(anno)
@@ -129,23 +138,23 @@ kval_plot <- function(data, ggData, anno) {
   kval_plot <- data |>
     ggplot2::ggplot(ggplot2::aes(x = .data$andel_per_syk, y = .data$Sykehus)) +
 
-    ggplot2::annotate("rect", ######### DENNE KAN HELLER BRUKES "OVER TID"...
-                      xmin = anno$xmin,
-                      xmax = anno$xmax,
-                      ymin = -Inf, ymax = Inf, fill = "lightgreen",
-                      alpha = .25) +
+    ggplot2::annotate(
+      "rect", ######### DENNE KAN HELLER BRUKES "OVER TID"...
+      xmin = anno$xmin,
+      xmax = anno$xmax,
+      ymin = -Inf, ymax = Inf, fill = "lightgreen",
+      alpha = .25
+    ) +
 
-    ggplot2::annotate("rect", ######### DENNE KAN HELLER BRUKES "OVER TID"...
-                      xmin = anno$xmin_moderate,
-                      xmax = anno$xmax_moderate,
-                      ymin = -Inf, ymax = Inf, fill = "gold",
-                      alpha = .15) +
+    ggplot2::annotate(
+      "rect", ######### DENNE KAN HELLER BRUKES "OVER TID"...
+      xmin = anno$xmin_moderate,
+      xmax = anno$xmax_moderate,
+      ymin = -Inf, ymax = Inf, fill = "gold",
+      alpha = .15
+    ) +
 
     ggplot2::geom_col(fill = "#6CACE4", alpha = .7) +
-
-    # ggplot2::geom_rect(aes(ymin = 0, ymax = 5, xmin = x_start, xmax = x_end), alpha = .5)+
-
-    #### TITLES ################################################################
 
     ggplot2::xlab(ggData$xlab) +
 
@@ -153,17 +162,14 @@ kval_plot <- function(data, ggData, anno) {
 
     ggplot2::ggtitle(ggData$title) +
 
-    ggplot2::geom_label(ggplot2::aes(x = 0, label = paste(.data$antall_kval_syk, "av", .data$per_syk)),
-                        fill = "#BFCED6", color = "#003087", fontface = "italic",
-                        position = ggplot2::position_dodge(.9), vjust = .5, size = 3,
-                        alpha = .8) +
+    ggplot2::geom_label(
+      ggplot2::aes(x = 0, label = paste(.data$antall_kval_syk, "av", .data$per_syk)),
+      fill = "#BFCED6", color = "#003087", fontface = "italic",
+      position = ggplot2::position_dodge(.9), vjust = .5, size = 3,
+      alpha = .8
+    ) +
 
     ggplot2::scale_x_continuous(breaks = c(20, 40, 60, 80, 100)) +
-    # maybe alter this based if other variables are chosen
-
-
-    ##### THEME AND COLOURS ####################################################
-
     ggplot2::theme_light() # light theme
 
   return(kval_plot)
@@ -200,17 +206,22 @@ explanation_kvalind <- function(var) {
   config <- get_config()
 
   data <- data |>
-    dplyr::mutate(text =  dplyr::recode_values({{var}},
-                                            "behandlingsplan" ~ config$kvalind$behandlingsplan$forklaring,
-                                            "kriseplan" ~ config$kvalind$kriseplan$forklaring,
-                                            "utbytte" ~ config$kvalind$utbytte$forklaring,
-                                            "gjensidig" ~ config$kvalind$gjensidig$forklaring,
-                                            default = config$kvalind$default$forklaring),
-      header = dplyr::recode_values({{var}},
-                                 "behandlingsplan" ~ "Behandlingsplan på plass tidlig i forløpet",
-                                 "kriseplan" ~ "Kriseplan på plass tidlig i forløpet",
-                                 "utbytte" ~ "Stort utbytte av behandlingen",
-                                 "gjensidig" ~ "Gjensidig avslutning av behandlingen")
+    dplyr::mutate(
+      text = dplyr::recode_values(
+        {{var}},
+        "behandlingsplan" ~ config$kvalind$behandlingsplan$forklaring,
+        "kriseplan" ~ config$kvalind$kriseplan$forklaring,
+        "utbytte" ~ config$kvalind$utbytte$forklaring,
+        "gjensidig" ~ config$kvalind$gjensidig$forklaring,
+        default = config$kvalind$default$forklaring
+      ),
+      header = dplyr::recode_values(
+        {{var}},
+        "behandlingsplan" ~ "Behandlingsplan på plass tidlig i forløpet",
+        "kriseplan" ~ "Kriseplan på plass tidlig i forløpet",
+        "utbytte" ~ "Stort utbytte av behandlingen",
+        "gjensidig" ~ "Gjensidig avslutning av behandlingen"
+      )
     )
 
   return(data)
