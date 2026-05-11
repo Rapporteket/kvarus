@@ -1,5 +1,15 @@
-####### MODULE FOR KVALITETSINDIKATORER ########################################
-
+#' UI Module for Kvalitetsindikator
+#'
+#' This function defines the UI for the "Kvalitetsindikator" module.
+#'
+#' @param id A unique identifier for the module namespace.
+#'
+#' @return A Shiny UI element for the module.
+#'
+#' @details This module is designed to create the user interface for the
+#' "Kvalitetsindikator" functionality within the application. The `id` parameter
+#' is used to create a namespace for the module, ensuring that its UI elements
+#' are uniquely identified within the Shiny application.
 #' @export
 
 module_kvalitetsindikator_ui <- function(id) {
@@ -42,9 +52,18 @@ module_kvalitetsindikator_ui <- function(id) {
 }
 
 
-
-# Server-part
-
+#' Server Module for Quality Indicators
+#'
+#' This function defines the server logic for the Quality Indicators module.
+#'
+#' @param id A unique identifier for the module namespace.
+#'
+#' @return A Shiny server function for the Quality Indicators module.
+#'
+#' @details
+#' This module is designed to handle the server-side logic for displaying
+#' and interacting with quality indicators in the application.
+#'
 #'@export
 
 module_qualind_server <- function(id) {
