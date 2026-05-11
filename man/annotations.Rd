@@ -19,8 +19,4 @@ indicated in green and in orange. xmax and xmin indicate the level for high
 (=green) achievement. xmax_moderate and xmin_moderate indicate the level for
 moderate achievement (i.e., orange)
 }
-\examples{
-my_annotations <- annotations("behandlingsplan")
-
-}
 \keyword{internal}

@@ -3,7 +3,6 @@
 export(app_server)
 export(app_ui)
 export(getBasisData)
-export(getFirstRegistrations)
 export(getTimepointData)
 export(get_config)
 export(info_server)

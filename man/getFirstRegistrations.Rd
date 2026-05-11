@@ -6,6 +6,9 @@
 \usage{
 getFirstRegistrations(timepointData)
 }
+\arguments{
+\item{timepointData}{data frame with all registrations for all patients}
+}
 \value{
 timepointData data frame
 }
@@ -13,3 +16,4 @@ timepointData data frame
 This function sorts the rows for each patient according to the registration time
 and keeps the first registration
 }
+\keyword{internal}

@@ -86,8 +86,6 @@ kval_count <- function(data, var) { # legg evt. til flere variabler her avhengig
 #'
 #'
 #' @return data frame with numeric values
-#' @examples
-#' my_annotations <- annotations("behandlingsplan")
 #'
 #' @keywords internal
 

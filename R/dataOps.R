@@ -3,8 +3,9 @@
 #' This function sorts the rows for each patient according to the registration time
 #' and keeps the first registration
 #'
+#' @param timepointData data frame with all registrations for all patients
 #' @return timepointData data frame
-#' @export
+#' @keywords internal
 getFirstRegistrations <- function(timepointData) {
   filteredData <- timepointData |>
     dplyr::group_by(.data$PasientGUID) |>
