@@ -1,4 +1,16 @@
-#' @export
+#' Calculate Quality Indicator Count
+#'
+#' @description
+#' Counts observations for quality indicator calculations based on specified variable(s).
+#'
+#' @param data A data frame containing the data to be analyzed
+#' @param var Variable name(s) to use for counting. Additional variables can be added
+#'   as needed based on user selection.
+#'
+#' @return
+#' A numeric count or aggregated result based on the specified variable(s).
+#'
+#' @keywords internal
 
 kval_count <- function(data, var) { # legg evt. til flere variabler her avhengig av brukervalg
 
