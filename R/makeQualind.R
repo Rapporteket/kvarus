@@ -172,14 +172,29 @@ kval_plot <- function(data, ggData, anno) {
 }
 
 
-# Test to see that it works
-## kval_plot(kval, ggData, anno) # nolint
-
-
-#' @title Function for getting explanations for kvalitetsindikatorer
+#' Get Explanations for Quality Indicators
 #'
-#' @export
-
+#' @description
+#' Retrieves explanatory text and header information for quality indicators
+#' (kvalitetsindikatorer) based on the provided variable name.
+#'
+#' @param var character. The name of the quality indicator variable for which
+#'   to retrieve explanations.
+#'
+#' @return
+#' A data frame with columns:
+#'   \item{header}{Character string containing the header/title for the indicator}
+#'   \item{text}{Character string containing the explanation text for the indicator}
+#'
+#' @details
+#' The function retrieves configuration settings via \code{get_config()} and
+#' uses them to populate explanatory information for the specified quality indicator.
+#'
+#' @examples
+#' \dontrun{
+#'   explanation_kvalind("indicator_name")
+#' }
+#' @keywords internal
 
 explanation_kvalind <- function(var) {
 

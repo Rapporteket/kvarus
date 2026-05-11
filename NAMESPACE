@@ -2,7 +2,6 @@
 
 export(app_server)
 export(app_ui)
-export(explanation_kvalind)
 export(getBasisData)
 export(getFirstRegistrations)
 export(getTimepointData)

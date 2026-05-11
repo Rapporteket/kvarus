@@ -2,10 +2,30 @@
 % Please edit documentation in R/makeQualind.R
 \name{explanation_kvalind}
 \alias{explanation_kvalind}
-\title{Function for getting explanations for kvalitetsindikatorer}
+\title{Get Explanations for Quality Indicators}
 \usage{
 explanation_kvalind(var)
 }
-\description{
-Function for getting explanations for kvalitetsindikatorer
+\arguments{
+\item{var}{character. The name of the quality indicator variable for which
+to retrieve explanations.}
 }
+\value{
+A data frame with columns:
+  \item{header}{Character string containing the header/title for the indicator}
+  \item{text}{Character string containing the explanation text for the indicator}
+}
+\description{
+Retrieves explanatory text and header information for quality indicators
+(kvalitetsindikatorer) based on the provided variable name.
+}
+\details{
+The function retrieves configuration settings via \code{get_config()} and
+uses them to populate explanatory information for the specified quality indicator.
+}
+\examples{
+\dontrun{
+  explanation_kvalind("indicator_name")
+}
+}
+\keyword{internal}
