@@ -15,7 +15,21 @@ getFirstRegistrations <- function(timepointData) {
   return(filteredData)
 }
 
-#' @export
+
+#' Preprocess Data
+#'
+#' Preprocesses the input data for analysis in Rapporteket's KVARUS registry.
+#'
+#' @param data A data frame or tibble to be preprocessed.
+#'
+#' @return A preprocessed data frame with cleaned and formatted data ready for analysis.
+#'
+#' @details
+#' This function performs various preprocessing operations on the input data,
+#' including data validation, cleaning, and transformation as required by
+#' the KVARUS registry specifications.
+#'
+#' @keywords internal
 
 prePros <- function(data) {
 
