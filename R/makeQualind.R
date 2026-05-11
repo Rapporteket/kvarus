@@ -20,7 +20,7 @@ kval_count <- function(data, var) { # legg evt. til flere variabler her avhengig
     dplyr::group_by(.data$Sykehus) |>
     dplyr::add_tally(name = "per_syk") |> # antall pasienter per sykehus
     dplyr::ungroup() |>
-    dplyr::select(.data$Sykehus, .data$alle, .data$per_syk) |>
+    dplyr::select("Sykehus", "alle", "per_syk") |>
     dplyr::distinct()
 
   # ### Prosessindikatorer som ikke ser på første målepunkt ######################
@@ -200,13 +200,13 @@ explanation_kvalind <- function(var) {
   config <- get_config()
 
   data <- data |>
-    dplyr::mutate(text =  dplyr::case_match({{var}},
+    dplyr::mutate(text =  dplyr::recode_values({{var}},
                                             "behandlingsplan" ~ config$kvalind$behandlingsplan$forklaring,
                                             "kriseplan" ~ config$kvalind$kriseplan$forklaring,
                                             "utbytte" ~ config$kvalind$utbytte$forklaring,
                                             "gjensidig" ~ config$kvalind$gjensidig$forklaring,
-                                            .default = config$kvalind$default$forklaring),
-      header = dplyr::case_match({{var}},
+                                            default = config$kvalind$default$forklaring),
+      header = dplyr::recode_values({{var}},
                                  "behandlingsplan" ~ "Behandlingsplan på plass tidlig i forløpet",
                                  "kriseplan" ~ "Kriseplan på plass tidlig i forløpet",
                                  "utbytte" ~ "Stort utbytte av behandlingen",
