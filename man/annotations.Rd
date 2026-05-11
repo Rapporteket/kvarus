@@ -23,3 +23,4 @@ moderate achievement (i.e., orange)
 my_annotations <- annotations("behandlingsplan")
 
 }
+\keyword{internal}

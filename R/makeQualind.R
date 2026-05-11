@@ -73,14 +73,6 @@ kval_count <- function(data, var) { # legg evt. til flere variabler her avhengig
 
   return(magnus)
 }
-# nolint start
-# testing:
-## kval <-  kval_count(punktData, "gjensidig") # nolint
-
-# Test for å sjekke:
-## k <- kval_count(punktData, "behandlingsplan")
-
-# nolint end
 
 #' Annotations
 #'
@@ -97,7 +89,7 @@ kval_count <- function(data, var) { # legg evt. til flere variabler her avhengig
 #' @examples
 #' my_annotations <- annotations("behandlingsplan")
 #'
-#' @export
+#' @keywords internal
 
 annotations <- function(var) {
   anno <- data.frame(xmax = 100, # in most cases xmax would be 100%
@@ -120,19 +112,20 @@ annotations <- function(var) {
   return(anno)
 }
 
-# nolint start
-# Test what it works::
-## anno <- annotations("kriseplan")
 
-# This function takes data frames made by other functions as input
-# "data" is the data frame made by kval_count
-# "gg_data" is the data frame made by makeGGdata
-# "anno" is the data frame made by "annotations"
-
-# nolint end
-
-#' @export
-
+#' Create a Quality Indicator Plot
+#'
+#' @description
+#' Generates a quality indicator plot based on the provided data and graphical parameters.
+#'
+#' @param data A data frame or data object containing the quality indicator data to be plotted.
+#' @param ggData A data frame formatted for use with ggplot2, containing processed data for visualization.
+#' @param anno A list or data frame containing annotation information to be added to the plot.
+#'
+#' @return
+#' A ggplot2 plot object representing the quality indicator visualization.
+#'
+#' @keywords internal
 kval_plot <- function(data, ggData, anno) {
 
   kval_plot <- data |>
