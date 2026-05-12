@@ -35,8 +35,8 @@ getFirstRegistrations <- function(timepointData) {
 prePros <- function(data) {
 
   data <- data |>
-    dplyr::rename(Sykehus = .data$db_unit_title,
-                  Alder = .data$PatientAge)
+    dplyr::rename(Sykehus = "db_unit_title",
+                  Alder = "PatientAge")
 
   data <- data |>
     dplyr::mutate(
@@ -69,8 +69,8 @@ prePros <- function(data) {
     ) # Vill gjetning
 
   data <- data |>
-    dplyr::select(!.data$behandlingsstatus) |>
-    dplyr::rename(behandlingsstatus = .data$behandlingsstatus_ny)
+    dplyr::select(!"behandlingsstatus") |>
+    dplyr::rename(behandlingsstatus = "behandlingsstatus_ny")
 
   return(data)
 }
