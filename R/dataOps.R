@@ -41,9 +41,11 @@ prePros <- function(data) {
   data <- data |>
     dplyr::mutate(
       behandlingsstatus_ny = dplyr::recode(.data$behandlingsstatus,
-                                           "0" = "velg verdi", "1" = "aktiv",
+                                           "0" = "velg verdi",
+                                           "1" = "aktiv",
                                            "2" = "overført annen juridisk enhet",
-                                           "3" = "avbrutt", "4" = "avsluttet med gjensidig avtale",
+                                           "3" = "avbrutt",
+                                           "4" = "avsluttet med gjensidig avtale",
                                            "5" = "fulgt opp etter 1 år",
                                            "6" = "ikke oppnådd kontakt etter 1 år",
                                            "7" = "ønsker ikke å svare etter 1 år"),
