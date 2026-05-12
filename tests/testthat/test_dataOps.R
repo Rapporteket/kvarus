@@ -2,7 +2,7 @@ test_that("getFirstRegistrations filters the first registration per patient", {
     # Create a sample dataset
     sample_data <- data.frame(
         PasientGUID = c("A", "A", "B", "B", "C"),
-        dato_mp_beh = as.POSIXct(c("2023-01-01", "2023-02-01", "2023-01-15", "2023-01-20", "2023-03-01")),
+        dato_mp_beh = c("2023-01-01", "2023-02-01", "2023-01-15", "2023-01-20", "2023-03-01"),
         value = c(10, 20, 30, 40, 50)
     )
 
@@ -30,6 +30,8 @@ test_that("prePros preprocesses the data correctly", {
 
     # Run the function
     result <- prePros(sample_data)
+
+    # Test if the result matches the expected output
     expect_equal_to_reference(result, "data/prePros.rds")
 
 })
