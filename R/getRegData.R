@@ -3,9 +3,12 @@
 #' @return regData data frame
 #' @export
 
-getBasisData <- function() {
+getBasisData <- function(columns = c("PatientAge", "oppfolging_nav_frekvens")) {
 
-  query <- "SELECT * FROM basisopplysninger_1;"
+  query <- sprintf(
+    "SELECT %s FROM basisopplysninger_1;",
+    paste(columns, collapse = ", ")
+  )
 
   rapbase::loadRegData("data", query)
 

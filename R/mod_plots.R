@@ -40,17 +40,20 @@ plots_server <- function(id) {
     function(input, output, session) {
 
       # Last inn data
-      basisData <- getBasisData()
+      basisData <- shiny::reactive({
+        shiny::req(input$var)
+        getBasisData(input$var)
+      })
 
       # Figur og tabell
       # Figur
       output$distPlot <- shiny::renderPlot({
-        makeHist(df = basisData, var = input$var, bins = input$bins)
+        makeHist(df = basisData(), var = input$var, bins = input$bins)
       })
 
       # Tabell
       output$distTable <- shiny::renderTable({
-        makeHist(df = basisData, var = input$var, bins = input$bins,
+        makeHist(df = basisData(), var = input$var, bins = input$bins,
                  makeTable = TRUE)
       })
     }
