@@ -21,10 +21,6 @@ app_ui <- function() {
       shiny::tabPanel(
         "Figur og tabell",
         plots_ui("plots")
-      ),
-      shiny:: tabPanel(
-        title = "Kvalitetsindikatorer",
-        module_kvalitetsindikator_ui("kval1")
       )
     ) # navbarPage
   ) # tagList

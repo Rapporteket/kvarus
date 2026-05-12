@@ -40,8 +40,17 @@ app_server <- function(input, output, session) {
     shiny::req(user$role()), {
       if (user$role() != "SC") {
         message("Removing export tab for user with role ", user$role())
+        shiny::removeTab("tabs", target = "Kvalitetsindikatorer")
         shiny::removeTab("tabs", target = "Eksport")
       } else {
+        message("Adding kvalitetsindikatorer tab for user with role ", user$role())
+        shiny::appendTab(
+          "tabs",
+          shiny:: tabPanel(
+            title = "Kvalitetsindikatorer",
+            module_kvalitetsindikator_ui("kval1")
+          )
+        )
         message("Adding export tab for user with role ", user$role())
         shiny::appendTab(
           "tabs",
