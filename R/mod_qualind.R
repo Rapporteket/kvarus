@@ -39,13 +39,11 @@ module_kvalitetsindikator_ui <- function(id) {
         shiny::htmlOutput(
           outputId = ns("text_body")
         ),
-        bslib::navset_card_underline(
-          bslib::nav_panel("Figur",
-                           shiny::plotOutput(outputId = ns("kval_plot")),
-                           shiny::downloadButton(ns("download_fig"), "Last ned figur")),
-          bslib::nav_panel("Tabell",
-                           DT::DTOutput(outputId = ns("kval_table")))
-        )
+        shiny::hr(),
+        shiny::plotOutput(outputId = ns("kval_plot")),
+        shiny::downloadButton(ns("download_fig"), "Last ned figur"),
+        shiny::hr(),
+        DT::DTOutput(outputId = ns("kval_table"))
       )
     )
   )
@@ -131,7 +129,7 @@ module_qualind_server <- function(id) {
           paste("Figur_", input$kval_var, "_", Sys.Date(), ".pdf", sep = "")
         },
         content = function(file) {
-          pdf(file, onefile = TRUE, width = 15, height = 9)
+          pdf(file, onefile = TRUE, width = 10, height = 15)
           plot(kval_plot_reactive())
           dev.off()
         }
