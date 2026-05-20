@@ -3,15 +3,26 @@
 <url><loc>/LICENSE.html</loc></url>
 <url><loc>/authors.html</loc></url>
 <url><loc>/index.html</loc></url>
+<url><loc>/reference/annotations.html</loc></url>
 <url><loc>/reference/app_server.html</loc></url>
 <url><loc>/reference/app_ui.html</loc></url>
+<url><loc>/reference/explanation_kvalind.html</loc></url>
 <url><loc>/reference/getBasisData.html</loc></url>
+<url><loc>/reference/getFirstRegistrations.html</loc></url>
+<url><loc>/reference/getTimepointData.html</loc></url>
+<url><loc>/reference/get_config.html</loc></url>
 <url><loc>/reference/index.html</loc></url>
 <url><loc>/reference/info_server.html</loc></url>
 <url><loc>/reference/info_ui.html</loc></url>
+<url><loc>/reference/kval_count.html</loc></url>
+<url><loc>/reference/kval_plot.html</loc></url>
+<url><loc>/reference/makeGGdata.html</loc></url>
 <url><loc>/reference/makeHist.html</loc></url>
+<url><loc>/reference/module_kvalitetsindikator_ui.html</loc></url>
+<url><loc>/reference/module_qualind_server.html</loc></url>
 <url><loc>/reference/plots_server.html</loc></url>
 <url><loc>/reference/plots_ui.html</loc></url>
+<url><loc>/reference/prePros.html</loc></url>
 <url><loc>/reference/run_app.html</loc></url>
 </urlset>
 
