@@ -138,19 +138,30 @@ kval_plot <- function(data, ggData, anno) {
   kval_plot <- data |>
     ggplot2::ggplot(ggplot2::aes(x = .data$andel_per_syk, y = .data$Sykehus)) +
 
+    # Grønt nivå
     ggplot2::annotate(
-      "rect", ######### DENNE KAN HELLER BRUKES "OVER TID"...
+      "rect",
       xmin = anno$xmin,
       xmax = anno$xmax,
       ymin = -Inf, ymax = Inf, fill = "lightgreen",
       alpha = .25
     ) +
 
+    # Oransje nivå
     ggplot2::annotate(
-      "rect", ######### DENNE KAN HELLER BRUKES "OVER TID"...
+      "rect",
       xmin = anno$xmin_moderate,
       xmax = anno$xmax_moderate,
       ymin = -Inf, ymax = Inf, fill = "gold",
+      alpha = .15
+    ) +
+
+    # Rødt nivå
+    ggplot2::annotate(
+      "rect",
+      xmin = -Inf,
+      xmax = anno$xmin_moderate,
+      ymin = -Inf, ymax = Inf, fill = "lightcoral",
       alpha = .15
     ) +
 
