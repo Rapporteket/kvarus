@@ -39,9 +39,27 @@ app_server <- function(input, output, session) {
     shiny::req(user$role()), {
       if (user$role() != "SC") {
         message("Removing export tab for user with role ", user$role())
+        shiny::removeTab("tabs", target = "Kvalitetsindikatorer")
         shiny::removeTab("tabs", target = "Eksport")
       } else {
+        message("Adding kvalitetsindikatorer tab for user with role ", user$role())
+        module_qualind_server("kval1")
+        shiny::appendTab(
+          "tabs",
+          shiny:: tabPanel(
+            title = "Kvalitetsindikatorer",
+            module_kvalitetsindikator_ui("kval1")
+          )
+        )
         message("Adding export tab for user with role ", user$role())
+        ## brukerkontroller
+        rapbase::exportUCServer(
+          "export",
+          dbName = "data",
+          teamName = Sys.getenv("SHINYPROXY_APPID", unset = "unknown")
+        )
+        ## veiledning
+        rapbase::exportGuideServer("exportGuide", dbName = "data")
         shiny::appendTab(
           "tabs",
           shiny::tabPanel(
@@ -59,17 +77,4 @@ app_server <- function(input, output, session) {
       }
     }
   )
-
-  ###############
-  # Export data #
-  ###############
-
-  ## brukerkontroller
-  rapbase::exportUCServer(
-    "export",
-    dbName = "data",
-    teamName = Sys.getenv("SHINYPROXY_APPID", unset = "unknown")
-  )
-  ## veiledning
-  rapbase::exportGuideServer("exportGuide", dbName = "data")
 }
