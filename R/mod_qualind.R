@@ -41,7 +41,7 @@ module_kvalitetsindikator_ui <- function(id) {
         ),
         bslib::navset_card_underline(
           bslib::nav_panel("Figur",
-                           shiny::plotOutput(outputId = ns("kval_plot")),
+                           shiny::plotOutput(outputId = ns("kval_plot"), height = "auto"),
                            shiny::downloadButton(ns("download_fig"), "Last ned figur")),
           bslib::nav_panel("Tabell",
                            DT::DTOutput(outputId = ns("kval_table")))
@@ -103,6 +103,12 @@ module_qualind_server <- function(id) {
 
       output$kval_plot <- shiny::renderPlot({
         kval_plot_reactive()
+      }, height = function() {
+        # Dynamisk høyde basert på antall sykehus
+        n_sykehus <- nrow(kval_df_reactive())
+        height_per_sykehus <- 20 # Ekstra høyde per sykehus
+        total_height <- (n_sykehus * height_per_sykehus)
+        return(max(total_height, 400)) # Sørg for at det ikke blir mindre enn basishøyden
       })
 
       ####### TABLE ##################################################################
