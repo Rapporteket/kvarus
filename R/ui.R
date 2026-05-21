@@ -21,8 +21,7 @@ app_ui <- function() {
       shiny::tabPanel(
         "Figur og tabell",
         plots_ui("plots")
-      ),
-
+      )
     ) # navbarPage
   ) # tagList
 }

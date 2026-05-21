@@ -3,10 +3,15 @@ Type: Package
 Title: Rapportek for kvarus
 Version: 0.1.0
 Authors@R: c(
-    person(given = "Petter",
-           family = "Linberg",
+    person(given = "Stein-Kato",
+         family = "Lindberg",
+         role = c("aut"),
+         email = "stein-kato.lindberg@helse-nord.no"),
+    person(given = "Ingrid",
+           family = "Bondevik",
            role = c("aut"),
-           email = "petter.linberg@helse-nord.no"),
+           email = "ingrid.bondevik@helse-nord.no",
+           comment = c(ORCID = "0000-0002-8564-255X")),
     person(given = "Arnfinn Hykkerud",
            family = "Steindal",
            role = c("aut", "cre"),
@@ -17,10 +22,15 @@ Description: A package providing Rapportek application for Kvarus.
 Depends:
   R (>= 4.1.0)
 Imports:
+    dplyr,
+    DT,
+    ggplot2,
     jsonlite,
     rapbase (>= 3.6.0),
     rlang,
-    shiny
+    shiny,
+    tidyr,
+    yaml
 Remotes:
   Rapporteket/rapbase
 License: GPL-3
