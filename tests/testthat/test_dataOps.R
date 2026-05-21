@@ -18,10 +18,10 @@ test_that("getFirstRegistrations filters the first registration per patient", {
 test_that("prePros preprocesses the data correctly", {
     # Create a sample dataset
     sample_data <- data.frame(
-        db_unit_title = c("Hospital A", "Hospital B", "Hospital A",
-                          "Hospital B", "Hospital A", "Hospital B",
-                          "Hospital A", "Hospital B"),
-        PatientAge = c(25, 30, 25, 30, 25, 30, 25, 30),
+        Sykehus = c("Hospital A", "Hospital B", "Hospital A",
+                    "Hospital B", "Hospital A", "Hospital B",
+                    "Hospital A", "Hospital B"),
+        Alder = c(25, 30, 25, 30, 25, 30, 25, 30),
         behandlingsstatus = c("1", "2", "3", "4", "5", "6", "7", "8"),
         plan_beh = c("1", "2", "0", "3", "qwerty", "4", "1", "2"),
         plan_krise = c("1", "2", "0", "3", "qwerty", "4", "1", "2"),

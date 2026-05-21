@@ -35,10 +35,6 @@ getFirstRegistrations <- function(timepointData) {
 prePros <- function(data) {
 
   data <- data |>
-    dplyr::rename(Sykehus = "db_unit_title",
-                  Alder = "PatientAge")
-
-  data <- data |>
     dplyr::mutate(
       behandlingsstatus_ny = dplyr::recode(.data$behandlingsstatus,
                                            "0" = "velg verdi",
