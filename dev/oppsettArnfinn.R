@@ -4,7 +4,17 @@ sship::dec(
   target_dir = "c://Users/ast046/Downloads/")
 
 devtools::install("../rapbase/.", dependencies = FALSE)
-devtools::install(dependencies = FALSE)
 
+devtools::install(dependencies = FALSE)
 source("dev/sysSetenv.R")
 kvarus::run_app(browser = TRUE)
+
+profvis::profvis({
+  shiny::runApp(
+   kvarus::run_app(browser = TRUE)
+  )
+})
+
+devtools::install(dependencies = FALSE)
+source("dev/sysSetenv.R")
+kvarus::plotsApp()
