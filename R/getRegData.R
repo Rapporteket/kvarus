@@ -4,11 +4,11 @@
 #' @return regData data frame
 #' @export
 
-getBasisData <- function(columns = c("PatientAge")) {
+getBasisData <- function(columns = c("PatientAge"), org = NULL) {
 
   query <- sprintf(
-    "SELECT %s FROM basisopplysninger_1;",
-    paste(columns, collapse = ", ")
+    "SELECT %s FROM basisopplysninger_1 WHERE UnitId = %s;",
+    paste(columns, collapse = ", "), org
   )
 
   rapbase::loadRegData("data", query)
