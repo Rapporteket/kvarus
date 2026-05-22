@@ -4,10 +4,12 @@
 \alias{plots_server}
 \title{Shiny module providing server logic for the plot tab}
 \usage{
-plots_server(id)
+plots_server(id, user)
 }
 \arguments{
 \item{id}{Character string module namespace}
+
+\item{user}{A reactive expression containing user information, including organization ID}
 }
 \description{
 Shiny module providing server logic for the plot tab

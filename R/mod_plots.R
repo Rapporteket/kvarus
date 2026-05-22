@@ -26,16 +26,18 @@ plots_ui <- function(id) {
 #' Shiny module providing server logic for the plot tab
 #'
 #' @param id Character string module namespace
+#' @param user A reactive expression containing user information, including organization ID
+#'
 #' @export
-plots_server <- function(id) {
+plots_server <- function(id, user) {
   shiny::moduleServer(
     id,
     function(input, output, session) {
 
       # Last inn data
       basisData <- shiny::reactive({
-        shiny::req(input$var)
-        getBasisData(input$var)
+        shiny::req(c(input$var, user$org()))
+        getBasisData(input$var, user$org())
       })
 
       # Figur og tabell
@@ -65,7 +67,10 @@ plotsApp <- function() {
     plots_ui("test")
   )
   server <- function(input, output, session) {
-    plots_server("test")
+    user <- rapbase::navbarWidgetServer2(
+      "navbar-widget", "kvarus"
+    )
+    plots_server("test", user)
   }
   shiny::shinyApp(ui, server)
 }
