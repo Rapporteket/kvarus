@@ -1,6 +1,8 @@
 #' Provides a dataframe containing data from a registry
 #'
 #' @param columns A character vector of column names to retrieve from the database.
+#' @param org The organization ID for which to retrieve data.
+#'
 #' @return regData data frame
 #' @export
 

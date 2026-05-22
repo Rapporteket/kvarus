@@ -4,10 +4,12 @@
 \alias{getBasisData}
 \title{Provides a dataframe containing data from a registry}
 \usage{
-getBasisData(columns = c("PatientAge"))
+getBasisData(columns = c("PatientAge"), org = NULL)
 }
 \arguments{
 \item{columns}{A character vector of column names to retrieve from the database.}
+
+\item{org}{The organization ID for which to retrieve data.}
 }
 \value{
 regData data frame

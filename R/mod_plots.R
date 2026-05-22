@@ -26,6 +26,8 @@ plots_ui <- function(id) {
 #' Shiny module providing server logic for the plot tab
 #'
 #' @param id Character string module namespace
+#' @param user A reactive expression containing user information, including organization ID
+#'
 #' @export
 plots_server <- function(id, user) {
   shiny::moduleServer(
