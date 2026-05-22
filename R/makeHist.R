@@ -1,37 +1,17 @@
-#' Make a histogram, either plot or its data
-#'
-#' Short demo on how to produce dynamic content in a shiny app at Rapporteket
+#' Make a histogram
 #'
 #' @param df dataframe from which output is to be made
 #' @param var string defining which varable in the data frame to use
-#' @param bins numeric vector defining the number of equally large groups
-#' @param makeTable Logical that if TRUE function will return a data frame
-#' containing the bin borders and count within each bin
 #'
-#' @return a graphical object or data frame
+#' @return a graphical object
 #' @export
 #'
 #' @examples
-#' makeHist(df = mtcars, var = "mpg", bins = 5, makeTable = FALSE)
+#' makeHist(df = mtcars, var = "mpg")
 
-makeHist <- function(df, var, bins, makeTable = FALSE) {
+makeHist <- function(df, var) {
 
-  x <- df[[var]]
-  x <- x[!is.na(x)]
-  bins <- seq(min(x), max(x), length.out = bins + 1)
-  t <- graphics::hist(
-    x,
-    breaks = bins,
-    col = "#154ba2",
-    border = "white",
-    main = paste("Fordeling av", var),
-    xlab = var,
-    ylab = "Antall"
-  )
-  if (makeTable) {
-    data.frame(GruppeMin = t$breaks[seq_along(t$mids)],
-               GruppeMax = t$breaks[2:(length(t$mids) + 1)], Antall = t$counts)
-  } else {
-    t
-  }
+  ggplot2::ggplot(df, ggplot2::aes(x = .data[[var]])) +
+    ggplot2::geom_bar(fill = "#154ba2", color = "white") +
+    ggplot2::labs(title = paste("Fordeling av", var), x = var, y = "Antall")
 }

@@ -12,19 +12,12 @@ plots_ui <- function(id) {
         inputId = ns("var"),
         label = "Variabel:",
         c("PatientAge", "oppfolging_nav_frekvens")
-      ),
-      shiny::sliderInput(
-        inputId = ns("bins"),
-        label = "Antall grupper:",
-        min = 1,
-        max = 10,
-        value = 5
       )
     ),
     shiny::mainPanel(
       shiny::tabsetPanel(
         shiny::tabPanel(ns("Figur"), shiny::plotOutput(ns("distPlot"))),
-        shiny::tabPanel(ns("Tabell"), shiny::tableOutput(ns("distTable")))
+        shiny::tabPanel(ns("Tabell"), DT::DTOutput(ns("distTable")))
       )
     )
   )
@@ -40,19 +33,39 @@ plots_server <- function(id) {
     function(input, output, session) {
 
       # Last inn data
-      basisData <- getBasisData()
+      basisData <- shiny::reactive({
+        shiny::req(input$var)
+        getBasisData(input$var)
+      })
 
       # Figur og tabell
       # Figur
       output$distPlot <- shiny::renderPlot({
-        makeHist(df = basisData, var = input$var, bins = input$bins)
+        makeHist(df = basisData(), var = input$var)
       })
 
       # Tabell
-      output$distTable <- shiny::renderTable({
-        makeHist(df = basisData, var = input$var, bins = input$bins,
-                 makeTable = TRUE)
+      output$distTable <- DT::renderDT({
+        tableData <- basisData() |>
+          dplyr::group_by(.data[[input$var]]) |>
+          dplyr::summarise(Antall = dplyr::n()) |>
+          dplyr::arrange(.data[[input$var]])
+        DT::datatable(tableData)
       })
     }
   )
+}
+
+#' Run plots module as a standalone Shiny app
+#'
+#' Convenience wrapper to launch the plots module for development and testing.
+#' @export
+plotsApp <- function() {
+  ui <- shiny::fluidPage(
+    plots_ui("test")
+  )
+  server <- function(input, output, session) {
+    plots_server("test")
+  }
+  shiny::shinyApp(ui, server)
 }
